@@ -74,9 +74,11 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .mg.note{display:inline-block;color:#fff;font-weight:800;font-size:19px;line-height:1.15;padding:3px 10px;border-radius:8px;letter-spacing:.2px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
 .d500000{background:#0a74a3}.d200000{background:#b3402a}.d100000{background:#2a7d36}.d50000{background:#c2447c}
 .d20000{background:#2858ad}.d10000{background:#8f6504}.d5000{background:#476b94}.d2000{background:#5f6772}.d1000{background:#7a4a8c}
+.row.big{background:#fff1d6;outline:3px solid #e08a00;outline-offset:-2px;border-radius:8px}
+.row.big .tt::after{content:" ⚠ Kiểm tra lại số tờ";color:#9a5a00;font-size:14px;font-weight:800}
 .row.has{background:var(--okbg);margin:0 -6px;padding-left:6px;padding-right:6px;border-radius:8px}
-.ver{text-align:center;font-size:12px;color:var(--muted);margin:2px 0 10px}
-.lg{font-size:13px;margin:-4px 0 4px;color:var(--muted)}
+.ver{text-align:center;font-size:14px;color:var(--muted);margin:2px 0 10px}
+.lg{font-size:14px;margin:-4px 0 4px;color:var(--muted)}
 .lg b{font-weight:800}
 .tt{font-size:14px;color:var(--muted);font-weight:600;white-space:nowrap;margin-top:2px}
 .tt.has{font-weight:800;font-size:17px;color:var(--c-tt)}
@@ -90,13 +92,18 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .btn{flex:1 1 calc(50% - 4px);min-height:48px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-weight:700;padding:8px 10px;cursor:pointer}
 .btn.pri{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
 .btn.dan{color:var(--bad);border-color:var(--bad)}
+.bn2{border-radius:12px;padding:12px;margin-bottom:12px;font-size:17px;font-weight:700;line-height:1.4}
+.bn2 .btn{margin-top:8px;width:100%}
+.bn-zalo{background:#fff1d6;color:#5a3300;border:2px solid #e08a00}
+.bn-luu{background:var(--okbg);color:var(--c-tt);border:2px solid var(--c-tt)}
+.bn-nhap{background:#e6f0ff;color:#0a3d8f;border:2px solid #0a4fb0}
 .banner{background:var(--warnbg);color:var(--warntx);border-radius:8px;padding:8px 10px;margin-bottom:12px;font-weight:600}
 .warn{background:var(--badbg);color:var(--bad);border:1px solid var(--bad);border-radius:8px;padding:8px 10px;margin-bottom:12px;font-weight:700}
 .bar{position:fixed;left:0;right:0;z-index:5}
 .bar .in{max-width:430px;margin:0 auto}
 #sumbar{bottom:calc(44px + env(safe-area-inset-bottom))}
 #sumbar .in{background:var(--card);border-top:2px solid var(--line);box-shadow:var(--shadow);padding:3px 12px 4px}
-#sumbar .l1{display:flex;flex-wrap:wrap;align-items:center;gap:0 6px;font-size:clamp(12px,3.7vw,14px);line-height:1.2;color:var(--muted)}
+#sumbar .l1{display:flex;flex-wrap:wrap;align-items:center;gap:0 6px;font-size:clamp(14px,3.9vw,15px);line-height:1.2;color:var(--muted)}
 #sumbar .it{white-space:nowrap}
 #sumbar .it b{color:var(--text);font-weight:700}
 #sumbar .bx{white-space:nowrap;border:2px solid;border-radius:6px;padding:0 5px;font-weight:600}
@@ -151,7 +158,7 @@ textarea.cp{width:100%;min-height:120px;font-size:16px;background:var(--inputbg)
 .voice .row2{display:flex;gap:8px;align-items:center}
 .voice select{margin:0;flex:1 1 auto;min-width:0;width:auto}
 .voice .btn{flex:0 0 auto;min-width:0;min-height:44px;padding:4px 12px}
-.voice .st{font-size:12px;line-height:1.3;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.voice .st{font-size:14px;line-height:1.3;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
 .voice .vb{font-size:14px;margin-top:6px;padding:8px 10px;border:1px dashed var(--line2);border-radius:8px;overflow-wrap:anywhere}
 .voice .vb:empty{display:none}
 ::placeholder{opacity:1;color:#6b7580}
@@ -169,6 +176,11 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
   <div class="warn" id="canh-bao-luu" data-testid="canh-bao-luu" role="alert" hidden>Chưa lưu được trên máy này</div>
 
   <section id="panel-kete" role="tabpanel" aria-labelledby="tab-kete">
+    <div class="bn2 bn-zalo" id="bn-zalo" hidden role="alert">Bạn đang mở trong Zalo. Muốn đưa KÊ TIỀN ra màn hình chính, hãy bấm dấu <b>ba chấm ⋯</b> góc trên bên phải rồi chọn <b>"Mở bằng trình duyệt"</b>.
+      <button type="button" class="btn pri" id="bn-zalo-hd">Xem hướng dẫn từng bước</button>
+      <button type="button" class="btn" id="bn-zalo-xong">Tôi đã làm xong, ẩn dòng này</button></div>
+    <div class="bn2 bn-nhap" id="bn-nhap" hidden role="status">Đã khôi phục bản đang kê dở của lần trước.
+      <button type="button" class="btn" id="bn-nhap-ok">Đã hiểu</button></div>
     <div class="banner" id="banner-sua" hidden>Đang xem/sửa một bản kê đã lưu. Bấm "Cập nhật" để ghi đè hoặc "Lưu thành bản mới".</div>
     <div class="card">
       <label class="f">Ngày<input type="date" id="f-ngay" data-testid="input-ngay"></label>
@@ -212,6 +224,8 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
       <div class="bc-t">Tổng cộng: <b id="o-tc" data-testid="out-tongcong">0 đ</b></div>
       <div class="bc-c">Bằng chữ: <span id="o-bchu" data-testid="out-bangchu">—</span></div>
     </div>
+    <div class="bn2 bn-luu" id="bn-luu" hidden role="status">✔ Đã lưu bản kê xong.
+      <button type="button" class="btn pri" id="bn-luu-moi">Kê bản mới</button></div>
     <div class="card">
       <div class="btns" id="actions">
         <button type="button" class="btn pri" id="b-luu" data-testid="btn-luu">Lưu bản kê</button>
@@ -223,7 +237,7 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
       </div>
       <textarea class="cp" id="cp-fallback" readonly hidden aria-label="Văn bản để sao chép thủ công"></textarea>
     </div>
-    <div class="ver">Bản 16/11 (có số tiền bằng chữ)<br>Cre: L.K.T 2026</div>
+    <div class="ver">Bản 16/11 chiều (tự lưu nháp)<br>Cre: L.K.T 2026</div>
   </section>
 
   <section id="panel-huongdan" role="tabpanel" aria-labelledby="tab-huongdan" hidden>
@@ -558,6 +572,18 @@ function bindOrder(){
     el.addEventListener("touchend",function(){setTimeout(function(){fresh=false;},400);});
   });
 }
+function isBig(mg,n){return n>=200||n*mg>=100000000;}
+var bigOk=false;
+var KEY_DRAFT="bangke_v3_draft",draftT=null,initDone=false;
+function draftNow(){
+  try{
+    var f=getForm();
+    if(!initDone||editingId||!isDirty()||isBlank(f)){if(initDone)localStorage.removeItem(KEY_DRAFT);return;}
+    localStorage.setItem(KEY_DRAFT,JSON.stringify({f:f,dt:dateTouched}));
+  }catch(e){}
+}
+function draftSched(){clearTimeout(draftT);draftT=setTimeout(draftNow,250);}
+function draftClear(){clearTimeout(draftT);try{localStorage.removeItem(KEY_DRAFT);}catch(e){}}
 function getForm(){
   var so={};DEN.forEach(function(mg){so[mg]=toInt(toInputs[mg].inp.value,5);});
   return {ngay:fNgay.value||todayStr(),nguoiNop:fTen.value.trim(),noiDung:fNd.value,ghiChu:"",
@@ -581,7 +607,7 @@ function setForm(r){
 }
 function recompute(){
   var f=getForm(),c=calc(f);
-  DEN.forEach(function(mg){var n=f.soTo[mg],v=n*mg,x=toInputs[mg];x.tt.textContent=money(v);x.tt.className="tt"+(v>0?" has":"");x.row.className="row"+(n>0?" has":"");x.inp.classList.toggle("zero",n===0);});
+  DEN.forEach(function(mg){var n=f.soTo[mg],v=n*mg,x=toInputs[mg];x.tt.textContent=money(v);x.tt.className="tt"+(v>0?" has":"");x.row.className="row"+(n>0?" has":"")+(isBig(mg,n)?" big":"");x.inp.classList.toggle("zero",n===0);});
   $("o-tong").textContent=money(c.tong);
   $("o-tc").textContent=money(c.tong);
   (function(){var t=docSoTien(c.tong);$("o-bchu").textContent=c.tong>0?t.charAt(0).toUpperCase()+t.slice(1)+" đồng.":"—";})();
@@ -590,6 +616,8 @@ function recompute(){
   $("o-tongto").textContent=String(c.tongTo);
   var n=$("o-nhan");n.textContent=nhanText(c.chenh);n.className="nhan "+nhanCls(c.chenh);
   setBar();
+  if($("bn-luu")&&!$("bn-luu").hidden&&isDirty())$("bn-luu").hidden=true;
+  draftSched();
 }
 function setEditing(id){
   editingId=id;
@@ -810,15 +838,23 @@ async function saveNew(){
   saving=true;
   try{
     freshDate();
-    var full=JSON.stringify(getForm()),all=await storage.list();
+    var f0=getForm();
+    if(calc(f0).tong===0){toast("Chưa nhập số tờ nào nên chưa lưu");return false;}
+    var bigs=DEN.filter(function(m){return isBig(m,f0.soTo[m]);});
+    if(bigs.length&&!bigOk){
+      var m0=bigs[0];saving=false;
+      confirmDlg("Mệnh giá "+fmt(m0)+" đang ghi "+f0.soTo[m0]+" tờ, bằng "+money(f0.soTo[m0]*m0)+". Số này lớn, có đúng không? Bấm Đồng ý nếu đúng.",function(){bigOk=true;saveNew().then(function(){bigOk=false;});});
+      return false;
+    }
+    var full=JSON.stringify(f0),all=await storage.list();
     if(lastSaved&&lastSaved.full===full&&all.some(function(x){return x.id===lastSaved.id;})){
       toast("Bản kê này vừa được lưu rồi");return true;
     }
     var id=newId(),ok=await storage.save(makeRec(id,new Date().toISOString()));
     updateWarn();
     if(ok){
-      lastSaved={full:full,id:id};baseSig=sigOf(getForm());
-      if(editingId)setEditing(id);
+      lastSaved={full:full,id:id};baseSig=sigOf(getForm());draftClear();
+      if(editingId)setEditing(id);else{$("bn-luu").hidden=false;}
     }
     toast(ok?"Đã lưu trên máy này":"Chưa lưu được trên máy này");
     await renderList();
@@ -842,6 +878,7 @@ function resetForm(){
   dateTouched=false;lastSaved=null;
   setForm({ngay:todayStr(),nguoiNop:"",noiDung:"Bớt gốc",ghiChu:"",phaiNop:0,soTo:{},xuLe:0});
   setEditing(null);$("cp-fallback").hidden=true;baseSig=sigOf(getForm());
+  if($("bn-luu"))$("bn-luu").hidden=true;if(initDone)draftClear();
   $("doc-vb").textContent="";stopSpeech(false);lastReadSig=resultSig();
   window.scrollTo(0,0);
 }
@@ -981,6 +1018,22 @@ $("fl-tatca").addEventListener("click",function(){setFilter("all");});
 storage.setOnMerge(function(){updateWarn();renderList();});
 
 resetForm();
+initDone=true;
+try{
+  var dj=localStorage.getItem(KEY_DRAFT);
+  if(dj){var d=JSON.parse(dj);if(d&&d.f&&!isBlank(d.f)){setForm(d.f);dateTouched=!!d.dt;recompute();$("bn-nhap").hidden=false;}}
+}catch(e){}
+$("bn-nhap-ok").addEventListener("click",function(){$("bn-nhap").hidden=true;});
+$("bn-luu-moi").addEventListener("click",function(){resetForm();});
+document.addEventListener("visibilitychange",function(){if(document.hidden)draftNow();});
+window.addEventListener("pagehide",draftNow);
+(function(){
+  var ua=navigator.userAgent||"",inZalo=/Zalo/i.test(ua),done=false;
+  try{done=localStorage.getItem("bangke_v2_zalodone")==="1";}catch(e){}
+  if(inZalo&&!done)$("bn-zalo").hidden=false;
+  $("bn-zalo-hd").addEventListener("click",function(){showTab("huongdan");window.scrollTo(0,0);});
+  $("bn-zalo-xong").addEventListener("click",function(){try{localStorage.setItem("bangke_v2_zalodone","1");}catch(e){}$("bn-zalo").hidden=true;});
+})();
 updateWarn();renderList();
 setBar();
 })();
