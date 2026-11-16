@@ -15,13 +15,13 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
 :root{
-  --bg:#f3f5f7;--card:#ffffff;--text:#1a1f24;--muted:#54606c;--line:#d5dbe1;--line2:#7d8a97;--pay-bg:#fdeceb;--pay-b:#b3261e;--pay-t:#7f130e;--c-mg:#08306b;--c-to:#6a1b9a;--c-tt:#00796b;--thieu-bg:#b3261e;--thieu-t:#ffffff;--kep-bg:#fff0d0;--kep-b:#a85a00;--kep-t:#4a2800;
+  --bg:#f3f5f7;--card:#ffffff;--text:#1a1f24;--muted:#54606c;--line:#d5dbe1;--line2:#7d8a97;--pay-bg:#fdeceb;--pay-b:#b3261e;--pay-t:#7f130e;--c-mg:#08306b;--c-to:#0a4fb0;--c-tt:#0a7a3d;--du-bg:#0a7a3d;--thua-bg:#7b1fa2;--thieu-bg:#b3261e;--thieu-t:#ffffff;--kep-bg:#fff0d0;--kep-b:#a85a00;--kep-t:#4a2800;
   --primary:#0a5cc2;--onprimary:#ffffff;--ok:#0a7a3d;--bad:#c62828;--okbg:#e3f4ea;--badbg:#fdeaea;--warnbg:#fff4d6;--warntx:#5c4400;
   --inputbg:#ffffff;--shadow:0 -2px 8px rgba(0,0,0,.12);
 }
 @media (prefers-color-scheme: dark){
   :root{
-    --bg:#101418;--card:#1b2127;--text:#eef2f5;--muted:#a9b4be;--line:#36404a;--line2:#7a8794;--pay-bg:#3d1512;--pay-b:#ff8a80;--pay-t:#ffd9d6;--c-mg:#6fa8ff;--c-to:#f0c8ff;--c-tt:#5df0c0;--thieu-bg:#a61b1b;--thieu-t:#ffffff;--kep-bg:#3b2a0a;--kep-b:#f2a93b;--kep-t:#ffe6b8;
+    --bg:#101418;--card:#1b2127;--text:#eef2f5;--muted:#a9b4be;--line:#36404a;--line2:#7a8794;--pay-bg:#3d1512;--pay-b:#ff8a80;--pay-t:#ffd9d6;--c-mg:#9cc5ff;--c-to:#8cc4ff;--c-tt:#5fd38a;--du-bg:#1d8f4f;--thua-bg:#8e3fb5;--thieu-bg:#a61b1b;--thieu-t:#ffffff;--kep-bg:#3b2a0a;--kep-b:#f2a93b;--kep-t:#ffe6b8;
     --primary:#7bb8ff;--onprimary:#06121f;--ok:#5fd38a;--bad:#ff8f87;--okbg:#14301f;--badbg:#3a1a1a;--warnbg:#3b3110;--warntx:#ffe29a;
     --inputbg:#12171c;--shadow:0 -2px 8px rgba(0,0,0,.5);
   }
@@ -59,14 +59,20 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .row:first-of-type{border-top:0}
 .lbl{flex:1 1 auto;min-width:max-content}
 .mg{font-weight:700;font-size:17px;color:var(--c-mg)}
-.lg{font-size:12px;margin:-4px 0 4px;color:var(--muted)}
+.mg.note{display:inline-block;color:#fff;font-weight:800;font-size:19px;line-height:1.15;padding:3px 10px;border-radius:8px;letter-spacing:.2px;box-shadow:inset 0 0 0 2px rgba(255,255,255,.35)}
+.d500000{background:#0a74a3}.d200000{background:#b3402a}.d100000{background:#2a7d36}.d50000{background:#c2447c}
+.d20000{background:#2858ad}.d10000{background:#8f6504}.d5000{background:#476b94}.d2000{background:#5f6772}.d1000{background:#7a4a8c}
+.row.has{background:var(--okbg);margin:0 -6px;padding-left:6px;padding-right:6px;border-radius:8px}
+.ver{text-align:center;font-size:12px;color:var(--muted);margin:2px 0 10px}
+.lg{font-size:13px;margin:-4px 0 4px;color:var(--muted)}
 .lg b{font-weight:800}
-.tt{font-size:14px;color:var(--c-tt);font-weight:600;white-space:nowrap}
-.tt.has{font-weight:800}
+.tt{font-size:14px;color:var(--muted);font-weight:600;white-space:nowrap;margin-top:2px}
+.tt.has{font-weight:800;font-size:17px;color:var(--c-tt)}
 .step{display:flex;align-items:center;flex:0 0 auto}
 .step button{width:44px;height:44px;border:1px solid var(--line2);background:var(--bg);border-radius:10px;font-size:24px;line-height:1;padding:0;cursor:pointer}
-.step input{width:62px;height:44px;margin:0 4px;text-align:center;font-size:18px;font-weight:800;padding:4px;color:var(--c-to);
-  background:var(--inputbg);border:2px solid var(--c-to);border-radius:8px;min-width:0}
+.step input{width:66px;height:44px;margin:0 4px;text-align:center;font-size:22px;font-weight:800;padding:4px;color:var(--c-to);
+  background:var(--inputbg);border:3px solid var(--c-to);border-radius:8px;min-width:0}
+.step input.zero{color:var(--muted);font-weight:600;border:2px solid var(--line2)}
 .row.xl .step{flex:1 1 auto;justify-content:flex-end}.row.xl .step input{width:100%;max-width:200px;font-size:17px;text-align:right;padding:4px 10px;color:var(--c-tt);border-color:var(--c-tt);font-weight:700}
 .btns{display:flex;flex-wrap:wrap;gap:8px}
 .btn{flex:1 1 calc(50% - 4px);min-height:48px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-weight:700;padding:8px 10px;cursor:pointer}
@@ -78,14 +84,14 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .bar .in{max-width:430px;margin:0 auto}
 #sumbar{bottom:calc(44px + env(safe-area-inset-bottom))}
 #sumbar .in{background:var(--card);border-top:2px solid var(--line);box-shadow:var(--shadow);padding:3px 12px 4px}
-#sumbar .l1{display:flex;flex-wrap:wrap;align-items:center;gap:0 6px;font-size:clamp(10.5px,3.3vw,12.5px);line-height:1.15;color:var(--muted)}
+#sumbar .l1{display:flex;flex-wrap:wrap;align-items:center;gap:0 6px;font-size:clamp(12px,3.7vw,14px);line-height:1.2;color:var(--muted)}
 #sumbar .it{white-space:nowrap}
 #sumbar .it b{color:var(--text);font-weight:700}
 #sumbar .bx{white-space:nowrap;border:2px solid;border-radius:6px;padding:0 5px;font-weight:600}
 #sumbar .bx b{font-weight:800;color:inherit}
 #sumbar .bx-ph{background:var(--pay-bg);border-color:var(--pay-b);color:var(--pay-t)}
 #sumbar .bx-da{background:var(--kep-bg);border-color:var(--kep-b);color:var(--kep-t)}
-@media (max-width:379px){#sumbar .it.to{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
+@media (max-width:429px){#sumbar .it.to{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}}
 #sumbar .l2{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
 #sumbar .l2 .btn{flex:0 0 auto;min-height:44px;min-width:84px;padding:0 12px}
 #sumbar .l2 .btn.mute{width:44px;min-width:44px;padding:0;font-size:22px;line-height:1}
@@ -93,8 +99,8 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 #sumbar .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .nhan{display:inline-block;font-weight:800;padding:1px 8px;border-radius:6px;white-space:nowrap}
 #sumbar .nhan{flex:0 1 auto;min-width:0;overflow:hidden;font-size:clamp(14px,4.8vw,20px);line-height:1.3}
-.nhan.thua{color:var(--ok);background:var(--okbg)}
-.nhan.dut{color:var(--ok);background:var(--okbg)}
+.nhan.thua{color:#fff;background:var(--thua-bg)}
+.nhan.dut{color:#fff;background:var(--du-bg)}
 .nhan.thieu{color:var(--thieu-t);background:var(--thieu-bg)}
 .nhan.thieu::before{content:"\25BC "}
 .nhan.thua::before{content:"\25B2 "}
@@ -185,7 +191,7 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
     </div>
     <div class="card">
       <h2>Số tờ theo mệnh giá</h2>
-      <div class="lg"><b style="color:var(--c-mg)">Mệnh giá</b> · <b style="color:var(--c-to)">Số tờ</b> · <b style="color:var(--c-tt)">Thành tiền</b></div>
+      <div class="lg"><b style="color:var(--c-mg)">Mệnh giá (màu như tờ tiền)</b> · <b style="color:var(--c-to)">Số tờ</b> · <b style="color:var(--c-tt)">Thành tiền</b></div>
       <div id="rows"></div>
     </div>
     <div class="card">
@@ -199,6 +205,7 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
       </div>
       <textarea class="cp" id="cp-fallback" readonly hidden aria-label="Văn bản để sao chép thủ công"></textarea>
     </div>
+    <div class="ver">Bản màu 16/11 (mệnh giá theo màu tờ tiền)</div>
   </section>
 
   <section id="panel-huongdan" role="tabpanel" aria-labelledby="tab-huongdan" hidden>
@@ -489,7 +496,7 @@ function buildRows(){
     var minus=h("button",{type:"button","data-testid":"minus-"+mg,"aria-label":"Giảm số tờ "+fmt(mg),text:"−"});
     var plus=h("button",{type:"button","data-testid":"plus-"+mg,"aria-label":"Tăng số tờ "+fmt(mg),text:"+"});
     var row=h("div",{class:"row"},[
-      h("div",{class:"lbl"},[h("div",{class:"mg","data-role":"menhgia",text:fmt(mg)}),tt]),
+      h("div",{class:"lbl"},[h("div",{class:"mg note d"+mg,"data-role":"menhgia",text:fmt(mg)}),tt]),
       h("div",{class:"step"},[minus,inp,plus])]);
     inp.addEventListener("input",function(){
       if(/\D/.test(inp.value))toast("Chỉ nhận chữ số, đã bỏ ký tự khác");
@@ -497,7 +504,7 @@ function buildRows(){
     });
     minus.addEventListener("click",function(){var n=toInt(inp.value,5);inp.value=String(Math.max(0,n-1));recompute();bumpAuto();});
     plus.addEventListener("click",function(){var n=toInt(inp.value,5);inp.value=String(Math.min(MAX_TO,n+1));recompute();bumpAuto();});
-    toInputs[mg]={inp:inp,tt:tt};
+    toInputs[mg]={inp:inp,tt:tt,row:row};
     rows.appendChild(row);
   });
   fXl=h("input",{type:"text",inputmode:"numeric",pattern:"[0-9.]*",autocomplete:"off","data-testid":"input-xule","aria-label":"Xu/lẻ (số tiền)",placeholder:"0"});
@@ -555,7 +562,7 @@ function setForm(r){
 }
 function recompute(){
   var f=getForm(),c=calc(f);
-  DEN.forEach(function(mg){var v=f.soTo[mg]*mg;var t=toInputs[mg].tt;t.textContent=money(v);t.className="tt"+(v>0?" has":"");});
+  DEN.forEach(function(mg){var n=f.soTo[mg],v=n*mg,x=toInputs[mg];x.tt.textContent=money(v);x.tt.className="tt"+(v>0?" has":"");x.row.className="row"+(n>0?" has":"");x.inp.classList.toggle("zero",n===0);});
   $("o-tong").textContent=money(c.tong);
   $("o-phai").textContent=money(c.phai);
   $("o-chenh").textContent=(c.chenh>0?"+":"")+money(c.chenh);
