@@ -11,14 +11,14 @@
   --bg:#f2f4f6;--card:#fff;--text:#111820;--muted:#46525e;--line:#cfd6dd;--line2:#6b7886;
   --primary:#0a58c0;--onprimary:#fff;
   --ok:#0b6b36;--okbg:#dff3e6;--bad:#b3141b;--badbg:#fde6e6;--warn:#7a4b00;--warnbg:#fff0c8;--none:#33414f;--nonebg:#e8edf2;
-  --inputbg:#fff;--shadow:0 -3px 10px rgba(0,0,0,.15);
+  --inputbg:#fff;--shadow:0 -3px 10px rgba(0,0,0,.15);--pay:#0b4fb0;--paybg:#e3eeff;--payfill:#0b4fb0;--onpay:#fff;--kebg:#e9edf1;
 }
 @media (prefers-color-scheme: dark){
   :root{
     --bg:#0f1317;--card:#1a2026;--text:#f2f5f8;--muted:#b3bec9;--line:#37414b;--line2:#8693a0;
     --primary:#8ac1ff;--onprimary:#06121f;
     --ok:#6fe09a;--okbg:#12301f;--bad:#ff9a92;--badbg:#3b1b1b;--warn:#ffd985;--warnbg:#3a3010;--none:#d3dbe3;--nonebg:#27303a;
-    --inputbg:#11161b;--shadow:0 -3px 10px rgba(0,0,0,.55);
+    --inputbg:#11161b;--shadow:0 -3px 10px rgba(0,0,0,.55);--pay:#9cc9ff;--paybg:#14283f;--payfill:#9cc9ff;--onpay:#06182b;--kebg:#262e36;
   }
 }
 *{box-sizing:border-box}
@@ -101,6 +101,8 @@ html.fs3 .step{flex:1 1 12rem}
 .act .nhan{flex:1;min-width:0;overflow-wrap:normal;font-size:.95rem;padding:.35rem .5rem}
 .act .btn{flex:0 0 auto;min-width:6.4rem}
 .nhan{display:block;font-weight:800;padding:.4rem .6rem;border-radius:.6rem;font-size:1rem;overflow-wrap:anywhere;line-height:1.25}
+button.nhan{border:0;font:inherit;font-weight:800;text-align:left;cursor:pointer;width:auto}
+.nhan small{display:block;font-size:.7rem;font-weight:700;opacity:.85}
 .nhan.thua{color:var(--warn);background:var(--warnbg)}
 .nhan.dut{color:var(--ok);background:var(--okbg)}
 .nhan.thieu{color:var(--bad);background:var(--badbg)}
@@ -138,6 +140,16 @@ body.kb #sumbar{bottom:env(safe-area-inset-bottom)}
 body.kb .sums .k,body.kb .act .btn.pri{display:none}
 body.kb .sums .v{font-size:1.1rem}
 [hidden]{display:none!important}
+.card.pay{border:3px solid var(--payfill);background:var(--card);padding:0;overflow:hidden}
+.card.pay h2{margin:0;background:var(--payfill);color:var(--onpay);padding:.55rem .8rem}
+.card.pay .pb{padding:.7rem}
+.card.pay .money-in{border:3px solid var(--payfill);color:var(--text);background:var(--paybg)}
+.sums .payc{background:var(--payfill);border-radius:.6rem;padding:.3rem .5rem}
+.sums .payc .k,.sums .payc .v{color:var(--onpay)}
+.sums .payc .k{font-weight:800}
+.sums .kec{background:var(--kebg);border-radius:.6rem;padding:.3rem .5rem}
+.kv.pay{background:var(--payfill);color:var(--onpay);padding:.45rem .6rem;border-radius:.5rem;border-top:0;margin:.3rem 0}
+.kv.pay span,.kv.pay b{color:var(--onpay);font-weight:800}
 </style>
 </head>
 <body>
@@ -167,10 +179,12 @@ body.kb .sums .v{font-size:1.1rem}
       <label class="f" id="gc-box" style="margin-top:.6rem" hidden>Ghi chú<input type="text" id="f-gc" autocomplete="off"></label>
     </div>
 
-    <div class="card">
+    <div class="card pay">
       <h2>2. Số tiền phải nộp</h2>
+      <div class="pb">
       <input type="text" id="f-phai" class="money-in" inputmode="numeric" autocomplete="off" placeholder="0" aria-label="Số tiền phải nộp, đồng">
       <div class="words" id="phai-chu">Gõ số liền, không cần gõ dấu chấm.</div>
+      </div>
     </div>
 
     <div class="card">
@@ -213,12 +227,12 @@ body.kb .sums .v{font-size:1.1rem}
 
 <div class="bar" id="sumbar"><div class="in" aria-live="polite">
   <div class="sums">
-    <div><div class="k">Đã kê</div><div class="v" id="o-tong">0 đ</div></div>
-    <div><div class="k">Phải nộp</div><div class="v" id="o-phai">0 đ</div></div>
+    <div class="kec"><div class="k">Đã kê</div><div class="v" id="o-tong">0 đ</div></div>
+    <div class="payc"><div class="k">Phải nộp</div><div class="v" id="o-phai">0 đ</div></div>
   </div>
   <div class="act">
     <button type="button" class="loa" id="b-loa" aria-pressed="true" aria-label="Tắt loa"><span id="loa-ic">🔊</span><span class="loa-tx" id="loa-tx">Đang đọc</span></button>
-    <span class="nhan none" id="o-nhan">Chưa kê</span>
+    <button type="button" class="nhan none" id="o-nhan" aria-live="polite"><span id="o-nhan-t">Chưa kê</span><small>chạm để nghe</small></button>
     <button type="button" class="btn pri" id="b-kexong">KÊ XONG</button>
   </div>
 </div></div>
@@ -242,7 +256,7 @@ body.kb .sums .v{font-size:1.1rem}
   <div class="dlg" role="dialog" aria-modal="true" aria-label="Kiểm tra lại trước khi lưu">
     <div class="big" id="kq-big"></div>
     <div class="kv"><span>Đã kê</span><b id="kq-tong"></b></div>
-    <div class="kv"><span>Phải nộp</span><b id="kq-phai"></b></div>
+    <div class="kv pay"><span>Phải nộp</span><b id="kq-phai"></b></div>
     <div class="kv"><span>Tổng số tờ</span><b id="kq-to"></b></div>
     <div class="lines" id="kq-lines"></div>
     <div class="hint" id="kq-hint"></div>
@@ -462,6 +476,7 @@ function setForm(r){
   DEN.forEach(function(mg){var n=r.soTo&&r.soTo[mg]?Number(r.soTo[mg]):0;toInputs[mg].inp.value=n?String(n):"";});
   fXl.value=r.xuLe?fmt(r.xuLe):"";
   syncCommitted();recompute();
+  clearTimeout(annT);lastAnn=statusSpeech(calc(getForm()));
 }
 var draftT=null;
 function saveDraft(){
@@ -481,7 +496,8 @@ function recompute(){
     x.row.className="row"+(n>0?" has":"");x.warn.hidden=n<WARN_TO;
   });
   $("o-tong").textContent=money(c.tong);$("o-phai").textContent=money(c.phai);
-  var st=status(c),n=$("o-nhan");n.textContent=st.text;n.className="nhan "+st.cls;
+  var st=status(c),n=$("o-nhan");$("o-nhan-t").textContent=st.text;n.className="nhan "+st.cls;
+  scheduleAnn();
   $("phai-chu").innerHTML="";
   if(c.phai>0){$("phai-chu").appendChild(document.createTextNode("Bằng chữ: "));$("phai-chu").appendChild(h("b",{text:cap(docSoTien(c.phai))+" đồng"}));}
   else $("phai-chu").textContent="Gõ số liền, không cần gõ dấu chấm.";
@@ -558,6 +574,24 @@ function recText(r){
   return L.join("\n");
 }
 
+/* Nói khi chạm ô trạng thái, và tự nói (thiếu/đủ/thừa) mỗi khi kết quả đổi và người dùng ngừng gõ */
+var lastAnn="",annT=null;
+function statusSpeech(c){
+  if(c.phai===0)return c.tong>0?"Chưa nhập số tiền phải nộp.":"Chưa kê tờ nào.";
+  if(c.chenh<0)return "Còn thiếu "+docSoTien(-c.chenh)+" đồng.";
+  if(c.chenh>0)return "Thừa "+docSoTien(c.chenh)+" đồng, kiểm tra lại.";
+  return "Đủ tiền rồi.";
+}
+function scheduleAnn(){
+  clearTimeout(annT);
+  annT=setTimeout(function(){
+    if(!$("ov-kq").hidden||!$("ov-xn").hidden||$("sumbar").hidden)return;
+    var c=calc(getForm()),t=statusSpeech(c);
+    if(t===lastAnn)return;
+    lastAnn=t;
+    if(c.phai>0&&c.tong>0)say(t,false);
+  },1500);
+}
 /* ---------- Giọng đọc ---------- */
 var committed={},plusTimer=null,plusPending=null,everSpoke=false;
 (function(){var m=storage.get(KEY_DOC);if(m==="tat")docMode="tat";})();
@@ -624,6 +658,12 @@ function bindVoice(){
     inp.addEventListener("blur",function(){commitCell(mg);});
   });
   fXl.addEventListener("change",commitXl);fXl.addEventListener("blur",commitXl);
+  $("o-nhan").addEventListener("mousedown",function(e){e.preventDefault();});
+  $("o-nhan").addEventListener("click",function(){
+    var c=calc(getForm()),t=statusSpeech(c);
+    clearTimeout(annT);lastAnn=t;
+    if(synthOf())say(t,true);else toast(t);
+  });
   $("b-loa").addEventListener("mousedown",function(e){e.preventDefault();});
   $("b-loa").addEventListener("click",function(){
     docMode=docMode==="tat"?"ket-qua":"tat";storage.set(KEY_DOC,docMode);
@@ -641,6 +681,7 @@ function bindVoice(){
 
 /* ---------- Màn hình kiểm tra lại ---------- */
 function openCheck(){
+  clearTimeout(annT);
   document.activeElement&&document.activeElement.blur&&document.activeElement.blur();
   var f=getForm(),c=calc(f),st=status(c),big=$("kq-big");
   big.textContent=st.text;big.className="big nhan "+st.cls;
