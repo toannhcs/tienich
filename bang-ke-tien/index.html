@@ -91,6 +91,9 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
   background:var(--inputbg);border:3px solid var(--c-to);border-radius:8px;min-width:0}
 .step input.zero{color:var(--muted);font-weight:600;border:2px solid var(--line2)}
 .row.xl .step{flex:1 1 auto;justify-content:flex-end}.row.xl .step input{width:100%;max-width:200px;font-size:17px;text-align:right;padding:4px 10px;color:var(--c-tt);border-color:var(--c-tt);font-weight:700}
+.acts .big{width:100%;flex:none;min-height:64px;font-size:21px;letter-spacing:.5px}
+.acts2{display:flex;gap:8px;margin-top:10px}
+.acts2 .btn{flex:1 1 0;min-height:52px;font-size:17px}
 .btns{display:flex;flex-wrap:wrap;gap:8px}
 .btn{flex:1 1 calc(50% - 4px);min-height:48px;border-radius:10px;border:1px solid var(--line);background:var(--card);font-weight:700;padding:8px 10px;cursor:pointer}
 .btn.pri{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
@@ -154,18 +157,30 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 #chep .in{max-width:430px;margin:0 auto}
 #chep h2{font-size:22px;margin:4px 0 6px}
 #chep .hint{font-size:16px;font-weight:600;color:var(--muted);margin-bottom:10px;line-height:1.4}
-.cp-row{display:flex;align-items:center;gap:10px;width:100%;min-height:68px;padding:8px 10px;margin-bottom:8px;border-radius:12px;border:2px solid var(--line);background:var(--card);text-align:left;font:inherit;color:var(--text);cursor:pointer}
-.cp-row .ck{flex:0 0 38px;height:38px;border-radius:8px;border:3px solid var(--c-tt);display:flex;align-items:center;justify-content:center;font-size:26px;font-weight:900;color:#fff}
-.cp-row .a{flex:1 1 auto;min-width:0}
-.cp-row .a b{display:block;font-size:20px}
-.cp-row .a span{font-size:17px;font-weight:700;color:var(--c-to)}
-.cp-row .m{flex:0 0 auto;font-size:20px;font-weight:800;color:var(--c-tt);text-align:right}
-.cp-row[aria-pressed=true]{opacity:.5;background:var(--okbg)}
-.cp-row[aria-pressed=true] .ck{background:var(--c-tt)}
-.cp-row[aria-pressed=true] .ck::after{content:"✔"}
-.cp-tot{background:var(--okbg);border:3px solid var(--c-tt);border-radius:12px;padding:12px;margin:12px 0}
-.cp-tot .t1{font-size:24px;font-weight:900;color:var(--c-tt)}
-.cp-tot .t2{font-size:19px;font-weight:700;line-height:1.45;margin-top:6px}
+.cp-info{font-size:17px;font-weight:700;line-height:1.5;margin-bottom:10px;overflow-wrap:anywhere}
+.cp-info span{font-weight:600;color:var(--muted)}
+.cp-tbl{border:3px solid var(--line2);border-radius:10px;overflow:hidden;background:var(--card);font-variant-numeric:tabular-nums}
+.cp-hd,.cp-r,.cp-ft{display:grid;grid-template-columns:46px minmax(0,1fr) minmax(0,.62fr) minmax(0,1.45fr);align-items:stretch;width:100%;margin:0;padding:0;border:0;border-top:2px solid var(--line2);background:none;color:var(--text);font:inherit;text-align:inherit;min-height:56px}
+.cp-hd{border-top:0;min-height:44px;background:var(--okbg);font-size:15px;font-weight:800}
+.cp-hd>*,.cp-r>*,.cp-ft>*{display:flex;align-items:center;padding:4px 8px;min-width:0;border-left:2px solid var(--line2)}
+.cp-hd>:first-child,.cp-r>:first-child,.cp-ft>:first-child{border-left:0;justify-content:center;padding:0}
+.cp-hd>*{justify-content:center;text-align:center}
+.cp-r .lt{justify-content:flex-end;font-size:clamp(17px,5vw,21px);font-weight:800}
+.cp-r .st{justify-content:center;font-size:clamp(17px,5vw,21px);font-weight:800;color:var(--c-to)}
+.cp-r .tt2{justify-content:flex-end;font-size:clamp(16px,4.8vw,20px);font-weight:800;color:var(--c-tt)}
+.cp-r .ck{width:30px;height:30px;border:3px solid var(--c-tt);border-radius:7px;align-items:center;justify-content:center;padding:0;border-left:3px solid var(--c-tt);color:#fff;font-size:22px;font-weight:900;display:flex}
+.cp-r .ck{align-self:center;justify-self:center}
+button.cp-r{cursor:pointer}
+button.cp-r[aria-pressed=true]{background:var(--okbg);opacity:.55}
+button.cp-r[aria-pressed=true] .ck{background:var(--c-tt)}
+button.cp-r[aria-pressed=true] .ck::after{content:"✔"}
+.cp-r.zero{opacity:.4}
+.cp-r.zero .lt{font-weight:600}
+.cp-ft{background:var(--okbg);min-height:60px}
+.cp-ft .l{grid-column:1/3;justify-content:flex-start;font-size:19px;font-weight:900;border-left:0;padding-left:12px}
+.cp-ft .st{justify-content:center;font-size:clamp(17px,5vw,21px);font-weight:900;color:var(--c-to)}
+.cp-ft .tt2{justify-content:flex-end;font-size:clamp(17px,5vw,21px);font-weight:900;color:var(--c-tt)}
+.cp-bc{border:3px solid var(--c-tt);border-radius:10px;background:var(--okbg);padding:10px 12px;margin:10px 0;font-size:19px;font-weight:800;line-height:1.45}
 #chep .btn{width:100%;flex:none;margin-top:8px}
 body.chep-open{overflow:hidden}
 font-size:18px;font-weight:700;line-height:1.45;margin-top:6px;overflow-wrap:break-word}
@@ -205,7 +220,7 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
       <button type="button" class="btn" id="bn-zalo-xong">Tôi đã làm xong, ẩn dòng này</button></div>
     <div class="bn2 bn-nhap" id="bn-nhap" hidden role="status">Đã khôi phục bản đang kê dở của lần trước.
       <button type="button" class="btn" id="bn-nhap-ok">Đã hiểu</button></div>
-    <div class="banner" id="banner-sua" hidden>Đang xem/sửa một bản kê đã lưu. Bấm "Cập nhật" để ghi đè hoặc "Lưu thành bản mới".</div>
+    <div class="banner" id="banner-sua" hidden>Đang xem một bản đã lưu. Sửa xong bấm LƯU THAY ĐỔI. Muốn kê người khác thì bấm Kê bản mới.</div>
     <div class="card">
       <label class="f">Ngày<input type="date" id="f-ngay" data-testid="input-ngay"></label>
       <label class="f">Người nộp<input type="text" id="f-ten" data-testid="input-nguoinop" autocomplete="off" placeholder="Họ tên người nộp"></label>
@@ -251,20 +266,19 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
       <button type="button" class="btn pri" id="b-chep" data-testid="btn-chep">Chép sang phiếu giấy</button>
       <div class="bc-n">Bảng này chỉ hỗ trợ tính. Hãy đối chiếu lại với phiếu giấy trước khi ký.</div>
     </div>
-    <div class="bn2 bn-luu" id="bn-luu" hidden role="status">✔ Đã lưu bản kê xong.
-      <button type="button" class="btn pri" id="bn-luu-moi">Kê bản mới</button></div>
+    <div class="bn2 bn-luu" id="bn-luu" hidden role="status">✔ Đã lưu xong. Xem lại ở tab "Đã lưu".</div>
     <div class="card">
-      <div class="btns" id="actions">
-        <button type="button" class="btn pri" id="b-luu" data-testid="btn-luu">Lưu bản kê</button>
-        <button type="button" class="btn pri" id="b-capnhat" data-testid="btn-capnhat" hidden>Cập nhật</button>
-        <button type="button" class="btn" id="b-luumoi" data-testid="btn-luumoi" hidden>Lưu thành bản mới</button>
-        <button type="button" class="btn" id="b-luukm" data-testid="btn-luukemoi">Lưu và kê mới</button>
-        <button type="button" class="btn dan" id="b-moi" data-testid="btn-lammoi">Làm mới</button>
-        <button type="button" class="btn" id="b-cp" data-testid="btn-saochep">Sao chép</button>
+      <div class="acts" id="actions">
+        <button type="button" class="btn pri big" id="b-luu" data-testid="btn-luu">LƯU BẢN KÊ</button>
+        <button type="button" class="btn pri big" id="b-capnhat" data-testid="btn-capnhat" hidden>LƯU THAY ĐỔI</button>
+        <div class="acts2">
+          <button type="button" class="btn" id="b-moi" data-testid="btn-lammoi">Kê bản mới</button>
+          <button type="button" class="btn" id="b-cp" data-testid="btn-saochep">Sao chép gửi Zalo</button>
+        </div>
       </div>
       <textarea class="cp" id="cp-fallback" readonly hidden aria-label="Văn bản để sao chép thủ công"></textarea>
     </div>
-    <div class="ver">Bản 16/11 tối (chép sang phiếu)<br>Cre: L.K.T 2026</div>
+    <div class="ver">Bản 16/11 tối (bảng kẻ khung)<br>Cre: L.K.T 2026</div>
   </section>
 
   <section id="panel-huongdan" role="tabpanel" aria-labelledby="tab-huongdan" hidden>
@@ -342,9 +356,10 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
 
 <div id="chep" role="dialog" aria-modal="true" aria-labelledby="chep-h" hidden><div class="in">
   <h2 id="chep-h" tabindex="-1">Chép sang phiếu giấy</h2>
-  <div class="hint">Chép từng dòng sang phiếu. Chép xong dòng nào thì bấm vào dòng đó để đánh dấu.</div>
-  <div id="chep-list"></div>
-  <div class="cp-tot"><div class="t1" id="chep-t1"></div><div class="t2" id="chep-t2"></div><div class="t2" id="chep-t3"></div></div>
+  <div class="hint">Chép từng dòng sang phiếu. Chép xong dòng nào, bấm vào dòng đó để đánh dấu ✔.</div>
+  <div class="cp-info" id="chep-info"></div>
+  <div class="cp-tbl" id="chep-list"></div>
+  <div class="cp-bc"><span id="chep-t2"></span></div>
   <div class="hint">Bảng này chỉ hỗ trợ tính. Hãy đối chiếu lại với phiếu giấy trước khi ký.</div>
   <button type="button" class="btn pri" id="chep-dong">Đóng, quay lại kê</button>
 </div></div>
@@ -672,7 +687,7 @@ function recompute(){
 function setEditing(id){
   editingId=id;
   $("banner-sua").hidden=!id;
-  $("b-luu").hidden=!!id;$("b-luukm").hidden=!!id;$("b-capnhat").hidden=!id;$("b-luumoi").hidden=!id;
+  $("b-luu").hidden=!!id;$("b-capnhat").hidden=!id;
 }
 function updateWarn(){$("canh-bao-luu").hidden=!storage.warn;}
 function freshDate(){
@@ -1030,22 +1045,23 @@ function initGuide(){
 var chepPrev=null;
 function openChep(){
   var f=getForm(),c=calc(f),L=$("chep-list");L.textContent="";
-  function add(a,b,m){
-    var bt=h("button",{type:"button",class:"cp-row","aria-pressed":"false"},[
-      h("span",{class:"ck","aria-hidden":"true"}),
-      h("span",{class:"a"},[h("b",{text:a}),h("span",{text:b})]),
-      h("span",{class:"m",text:m})]);
+  var info=$("chep-info");info.textContent="";
+  [["Người nộp: ",f.nguoiNop||"(chưa ghi)"],["Nội dung: ",f.noiDung],["Ngày: ",fmtDate(f.ngay)]].forEach(function(p){
+    info.appendChild(h("div",{},[h("span",{text:p[0]}),document.createTextNode(p[1])]));});
+  L.appendChild(h("div",{class:"cp-hd"},[h("div",{text:"✔"}),h("div",{text:"Loại tiền"}),h("div",{text:"Số tờ"}),h("div",{text:"Thành tiền (đ)"})]));
+  function row(label,so,tien,on){
+    var kids=[h("div",{class:"ck","aria-hidden":"true"}),h("div",{class:"lt",text:label}),h("div",{class:"st",text:so}),h("div",{class:"tt2",text:tien})];
+    if(!on){kids[0]=h("div",{});var d=h("div",{class:"cp-r zero"},kids);L.appendChild(d);return;}
+    var bt=h("button",{type:"button",class:"cp-r","aria-pressed":"false","aria-label":label+", "+so+" tờ, "+tien+" đồng"},kids);
     bt.addEventListener("click",function(){bt.setAttribute("aria-pressed",String(bt.getAttribute("aria-pressed")!=="true"));});
     L.appendChild(bt);
   }
-  var any=false;
-  DEN.forEach(function(mg){var n=f.soTo[mg]||0;if(n){any=true;add(fmt(mg)+" đ",n+" tờ",money(n*mg));}});
-  if(f.xuLe){any=true;add("Xu/lẻ","",money(f.xuLe));}
-  if(!any)L.appendChild(h("div",{class:"hint",text:"Chưa nhập số tờ nào."}));
-  $("chep-t1").textContent="Tổng cộng: "+money(c.tong);
+  function num(n){return String(n).replace(/\B(?=(\d{3})+(?!\d))/g,".");}
+  DEN.forEach(function(mg){var n=f.soTo[mg]||0;row(num(mg),n?String(n):"",n?num(n*mg):"",n>0);});
+  if(f.xuLe)row("Xu/lẻ","",num(f.xuLe),true);
+  L.appendChild(h("div",{class:"cp-ft"},[h("div",{class:"l",text:"Tổng cộng"}),h("div",{class:"st",text:String(c.tongTo)}),h("div",{class:"tt2",text:num(c.tong)})]));
   var t=docSoTien(c.tong);
   $("chep-t2").textContent="Bằng chữ: "+(c.tong>0?t.charAt(0).toUpperCase()+t.slice(1)+" đồng.":"—");
-  $("chep-t3").textContent="Tổng số tờ: "+c.tongTo+" tờ";
   chepPrev=document.activeElement;
   $("chep").hidden=false;document.body.classList.add("chep-open");$("chep").scrollTop=0;
   ["wrap","sumbar","tabs"].forEach(function(id){$(id).setAttribute("inert","");});
@@ -1080,13 +1096,11 @@ $("tab-huongdan").addEventListener("click",function(){showTab("huongdan");});
 $("hd-ip").addEventListener("click",function(){setPhone("ip");});
 $("hd-an").addEventListener("click",function(){setPhone("an");});
 $("b-luu").addEventListener("click",function(){saveNew();});
-$("b-luumoi").addEventListener("click",function(){saveNew();});
-$("b-luukm").addEventListener("click",async function(){var ok=await saveNew();if(ok)resetForm();});
 $("b-capnhat").addEventListener("click",saveUpdate);
 $("b-moi").addEventListener("click",function(){
   var f=getForm();
-  if(isBlank(f)){resetForm();return;}
-  confirmDlg("Làm mới sẽ xóa toàn bộ số đang nhập (không ảnh hưởng bản đã lưu). Tiếp tục?",resetForm);
+  if(isBlank(f)||!isDirty()){resetForm();return;}
+  confirmDlg("Số đang nhập CHƯA LƯU sẽ bị xóa để kê bản mới. Bạn đã bấm Lưu chưa? Bấm Đồng ý nếu muốn xóa và kê bản mới.",resetForm);
 });
 $("b-cp").addEventListener("click",function(){var f=getForm();copyText(recText(f),$("cp-fallback"));});
 $("b-cpds").addEventListener("click",function(){
@@ -1108,7 +1122,6 @@ try{
   if(dj){var d=JSON.parse(dj);if(d&&d.f&&!isBlank(d.f)){setForm(d.f);dateTouched=!!d.dt;recompute();$("bn-nhap").hidden=false;}}
 }catch(e){}
 $("bn-nhap-ok").addEventListener("click",function(){$("bn-nhap").hidden=true;});
-$("bn-luu-moi").addEventListener("click",function(){resetForm();});
 document.addEventListener("visibilitychange",function(){if(document.hidden)draftNow();});
 window.addEventListener("pagehide",draftNow);
 (function(){
