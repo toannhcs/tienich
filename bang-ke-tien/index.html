@@ -158,6 +158,16 @@ body.kb .sums .v{font-size:1.1rem}
 .sums .kec{background:var(--kebg);border-radius:.6rem;padding:.3rem .5rem}
 .kv.pay{background:var(--payfill);color:var(--onpay);padding:.45rem .6rem;border-radius:.5rem;border-top:0;margin:.3rem 0}
 .kv.pay span,.kv.pay b{color:var(--onpay);font-weight:800}
+.steps{list-style:none;padding:0;margin:.4rem 0 0;counter-reset:s}
+.steps li{counter-increment:s;display:flex;gap:.7rem;align-items:flex-start;padding:.7rem 0;border-top:2px solid var(--line);font-size:1.05rem}
+.steps li:first-child{border-top:0}
+.steps li::before{content:counter(s);flex:0 0 2.2rem;height:2.2rem;border-radius:50%;background:var(--primary);color:var(--onprimary);font-weight:800;display:flex;align-items:center;justify-content:center}
+.steps b{font-weight:800}
+.tip{margin-top:.6rem;padding:.6rem .7rem;border-radius:.6rem;background:var(--warnbg);color:var(--warn);font-weight:700}
+.okmsg{padding:.6rem .7rem;border-radius:.6rem;background:var(--okbg);color:var(--ok);font-weight:800;margin-bottom:.6rem}
+#banner-home{display:flex;flex-direction:column;gap:.5rem}
+#banner-zalo .btns2 .btn{min-height:3rem}
+#banner-home .btns2{display:flex;gap:.5rem}#banner-home .btns2 .btn{flex:1;min-height:3rem}
 </style>
 </head>
 <body>
@@ -173,6 +183,14 @@ body.kb .sums .v{font-size:1.1rem}
   <div class="warn" id="canh-bao-luu" role="alert" hidden>Chưa lưu được trên máy này</div>
 
   <section id="panel-kete" role="tabpanel">
+    <div class="warn" id="banner-zalo" hidden>
+      <div>⚠ Bạn đang mở trong <b>Zalo</b>. Trong Zalo không thêm ra màn hình chính được, và các bản kê lưu ở đây sẽ không thấy ở Safari/Chrome.</div>
+      <div class="btns2" style="margin-top:.5rem"><button type="button" class="btn pri" id="b-zalo-xem" style="width:100%">Xem cách mở bằng trình duyệt</button></div>
+    </div>
+    <div class="banner" id="banner-home" hidden>
+      <div>📲 Thêm <b>KÊ TIỀN</b> ra màn hình chính để mở nhanh, chỉ cần chạm một lần.</div>
+      <div class="btns2"><button type="button" class="btn pri" id="b-home-xem">Xem cách làm</button><button type="button" class="btn" id="b-home-sau">Để sau</button></div>
+    </div>
     <div class="banner" id="banner-sua" hidden>Đang sửa một bản đã lưu. Bấm "CẬP NHẬT" để ghi đè, hoặc "Lưu thành bản mới".</div>
     <div class="banner" id="banner-nhap" hidden>Đã mở lại bản đang kê dở lần trước. Muốn bắt đầu lại, bấm "Xóa hết, kê lại" ở cuối trang.</div>
 
@@ -231,6 +249,45 @@ body.kb .sums .v{font-size:1.1rem}
     </div>
     <div id="list"></div>
   </section>
+
+  <section id="panel-hd" role="tabpanel" hidden>
+    <div class="card">
+      <h2>📲 Đưa KÊ TIỀN ra màn hình chính</h2>
+      <div class="okmsg" id="hd-ok" hidden>✔ Bạn đang mở từ màn hình chính rồi, không cần làm thêm.</div>
+      <div class="seg two" role="group" aria-label="Chọn loại điện thoại">
+        <button type="button" id="hd-ip" aria-pressed="false">iPhone</button>
+        <button type="button" id="hd-an" aria-pressed="true">Android</button>
+      </div>
+      <ol class="steps" id="hd-iphone" hidden>
+        <li><span><b>Đang mở trong Zalo?</b> Bấm dấu <b>ba chấm ⋯</b> ở góc trên bên phải, chọn <b>"Mở bằng trình duyệt"</b> (có thể ghi "Mở bằng Safari"). Phải làm bước này trước, vì trong Zalo không thêm ra màn hình chính được.</span></li>
+        <li><span>Kiểm tra trang đang mở trong <b>Safari</b> (biểu tượng la bàn xanh).</span></li>
+        <li><span>Bấm nút <b>Chia sẻ</b> ở giữa dưới cùng màn hình (hình ô vuông có mũi tên chỉ lên).</span></li>
+        <li><span>Vuốt danh sách lên, chọn <b>"Thêm vào MH chính"</b>.</span></li>
+        <li><span>Bấm <b>"Thêm"</b> ở góc trên bên phải.</span></li>
+        <li><span>Icon xanh lá <b>KÊ TIỀN</b> hiện ra ở màn hình chính. Từ nay chỉ cần chạm vào đó.</span></li>
+      </ol>
+      <ol class="steps" id="hd-android">
+        <li><span><b>Đang mở trong Zalo?</b> Bấm dấu <b>ba chấm ⋯</b> ở góc trên bên phải, chọn <b>"Mở bằng trình duyệt"</b> (có thể ghi "Mở bằng Chrome"). Phải làm bước này trước, vì trong Zalo không thêm ra màn hình chính được.</span></li>
+        <li><span>Kiểm tra trang đang mở trong <b>Chrome</b> (biểu tượng tròn đỏ, vàng, xanh lá).</span></li>
+        <li><span>Bấm dấu <b>ba chấm dọc ⋮</b> ở góc trên bên phải.</span></li>
+        <li><span>Chọn <b>"Thêm vào màn hình chính"</b> (hoặc <b>"Cài đặt ứng dụng"</b>).</span></li>
+        <li><span>Bấm <b>"Thêm"</b> (hoặc <b>"Cài đặt"</b>) rồi bấm thêm lần nữa nếu máy hỏi.</span></li>
+        <li><span>Icon xanh lá <b>KÊ TIỀN</b> hiện ra ở màn hình chính. Từ nay chỉ cần chạm vào đó.</span></li>
+      </ol>
+      <div class="tip">Các bản kê lưu trong Zalo <b>không</b> sang được Safari/Chrome. Nên mở bằng trình duyệt và thêm ra màn hình chính <b>trước khi bắt đầu kê</b>.</div>
+    </div>
+    <div class="card">
+      <h2>Cách dùng nhanh</h2>
+      <ol class="steps">
+        <li><span>Gõ <b>tên người nộp</b>, chọn nội dung nộp.</span></li>
+        <li><span>Gõ <b>số tiền phải nộp</b> vào ô xanh. Máy đọc lại bằng chữ để soát.</span></li>
+        <li><span>Đếm từng loại tiền, bấm <b>+</b> hoặc gõ thẳng số tờ.</span></li>
+        <li><span>Nhìn ô <b>THIẾU</b> (đỏ), <b>THỪA</b> (vàng), <b>ĐỦ</b> (xanh). Chạm vào ô đó để nghe máy đọc.</span></li>
+        <li><span>Đủ rồi thì bấm <b>KÊ XONG</b>, soát lại, bấm <b>LƯU BẢN KÊ</b>.</span></li>
+      </ol>
+      <div class="tip">Xem lại các bản đã kê ở mục <b>"Đã lưu"</b>. Chữ nhỏ quá thì bấm <b>A+</b> hoặc <b>A++</b> ở góc trên bên phải. Loa ồn thì bấm nút loa ở thanh dưới để tắt.</div>
+    </div>
+  </section>
 </div>
 
 <div class="bar" id="sumbar"><div class="in" aria-live="polite">
@@ -248,6 +305,7 @@ body.kb .sums .v{font-size:1.1rem}
 <div class="bar" id="tabs"><div class="in" role="tablist">
   <button type="button" role="tab" id="tab-kete" aria-selected="true">Kê tiền</button>
   <button type="button" role="tab" id="tab-daluu" aria-selected="false">Đã lưu</button>
+  <button type="button" role="tab" id="tab-hd" aria-selected="false">Hướng dẫn</button>
 </div></div>
 
 <div class="ov" id="ov-xn" hidden>
@@ -806,10 +864,33 @@ function openRec(r){
 }
 function showTab(name){
   var k=name==="kete";
-  $("panel-kete").hidden=!k;$("panel-daluu").hidden=k;$("sumbar").hidden=!k;
-  $("tab-kete").setAttribute("aria-selected",String(k));$("tab-daluu").setAttribute("aria-selected",String(!k));
-  if(!k)renderList();
+  $("panel-kete").hidden=!k;$("panel-daluu").hidden=name!=="daluu";$("panel-hd").hidden=name!=="hd";$("sumbar").hidden=!k;
+  ["kete","daluu","hd"].forEach(function(t){$("tab-"+t).setAttribute("aria-selected",String(t===name));});
+  if(name==="daluu")renderList();
   setBar();window.scrollTo(0,0);
+}
+/* Hướng dẫn đưa ra màn hình chính */
+var KEY_HOME="bangke_v2_homehint";
+function isIos(){return /iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==="MacIntel"&&navigator.maxTouchPoints>1);}
+function isStandalone(){try{return !!(navigator.standalone||(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches));}catch(e){return false;}}
+function setPlat(ios){
+  $("hd-ip").setAttribute("aria-pressed",String(ios));$("hd-an").setAttribute("aria-pressed",String(!ios));
+  $("hd-iphone").hidden=!ios;$("hd-android").hidden=ios;
+}
+function initHome(){
+  setPlat(isIos());
+  var st=isStandalone();
+  $("hd-ok").hidden=!st;
+  var web=/github\.io$/.test(location.hostname);
+  var zalo=/Zalo/i.test(navigator.userAgent);
+  $("banner-zalo").hidden=!zalo;
+  $("banner-home").hidden=!(web&&!st&&!zalo&&storage.get(KEY_HOME)!=="1");
+  $("b-zalo-xem").addEventListener("click",function(){showTab("hd");});
+  $("hd-ip").addEventListener("click",function(){setPlat(true);});
+  $("hd-an").addEventListener("click",function(){setPlat(false);});
+  $("tab-hd").addEventListener("click",function(){showTab("hd");});
+  $("b-home-xem").addEventListener("click",function(){showTab("hd");});
+  $("b-home-sau").addEventListener("click",function(){storage.set(KEY_HOME,"1");$("banner-home").hidden=true;setBar();});
 }
 
 /* ---------- Gắn sự kiện ---------- */
@@ -854,6 +935,7 @@ $("f-tim").addEventListener("input",renderList);
 $("fl-homnay").addEventListener("click",function(){setFilter("today");});
 $("fl-tatca").addEventListener("click",function(){setFilter("all");});
 
+initHome();
 resetForm();
 /* Khôi phục bản kê dở (khi bị cuộc gọi, tắt màn hình, thoát nhầm) */
 (function(){
