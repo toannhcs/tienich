@@ -81,7 +81,7 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .nhan.thieu{color:var(--bad);background:var(--badbg)}
 #tabs{bottom:0}
 #tabs .in{display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-#tabs button{flex:1;height:44px;border:0;background:transparent;font-weight:700;font-size:15px;color:var(--muted);cursor:pointer;border-top:3px solid transparent}
+#tabs button{flex:1 1 0;min-width:0;white-space:nowrap;height:44px;border:0;background:transparent;font-weight:700;font-size:clamp(13px,3.9vw,15px);padding:0 2px;color:var(--muted);cursor:pointer;border-top:3px solid transparent}
 #tabs button[aria-selected=true]{color:var(--primary);border-top-color:var(--primary)}
 .item{display:flex;align-items:stretch;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:10px 10px 10px 12px;cursor:pointer;min-width:0}
 .item .body{flex:1;min-width:0}
@@ -90,6 +90,11 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .item .t3 span{white-space:nowrap}
 .item .t3{font-weight:700;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
 .item .btn{flex:0 0 auto;min-height:44px;min-width:56px;align-self:center;padding:6px 10px}
+.steps{margin:10px 0 0;padding-left:22px}
+.steps li{margin:0 0 10px;line-height:1.45;overflow-wrap:break-word}
+.steps li::marker{font-weight:700;color:var(--primary)}
+.tip{margin-top:6px;padding:8px 10px;border-radius:8px;background:var(--warnbg);color:var(--warntx);font-size:14px;line-height:1.45}
+.okmsg{margin:8px 0;padding:8px 10px;border-radius:8px;background:var(--okbg);color:var(--ok);font-weight:700}
 .seg{display:flex;gap:8px;margin:8px 0}
 .seg button{flex:1;min-height:44px;border:1px solid var(--line2);background:var(--card);border-radius:10px;font-weight:700;cursor:pointer}
 .seg button[aria-pressed=true]{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
@@ -169,6 +174,45 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
     </div>
   </section>
 
+  <section id="panel-huongdan" role="tabpanel" aria-labelledby="tab-huongdan" hidden>
+    <div class="card">
+      <h2>Đưa KÊ TIỀN ra màn hình chính</h2>
+      <div class="okmsg" id="hd-ok" data-testid="hd-dang-mo-tu-man-hinh-chinh" hidden>✔ Bạn đang mở từ màn hình chính rồi</div>
+      <div class="seg" role="group" aria-label="Chọn loại điện thoại">
+        <button type="button" id="hd-ip" data-testid="hd-iphone" aria-pressed="false">iPhone</button>
+        <button type="button" id="hd-an" data-testid="hd-android" aria-pressed="false">Android</button>
+      </div>
+      <ol class="steps" id="hd-ol-ip" hidden>
+        <li><b>Đang mở trong Zalo?</b> Bấm dấu <b>ba chấm ⋯</b> ở góc trên bên phải, chọn <b>"Mở bằng trình duyệt"</b> (có thể ghi "Mở bằng Safari"). Phải làm bước này trước, vì trong Zalo không thêm ra màn hình chính được.</li>
+        <li>Kiểm tra trang đang mở trong <b>Safari</b> (biểu tượng la bàn xanh).</li>
+        <li>Bấm nút <b>Chia sẻ</b> ở giữa dưới cùng màn hình (hình ô vuông có mũi tên chỉ lên).</li>
+        <li>Vuốt danh sách lên, chọn <b>"Thêm vào MH chính"</b>.</li>
+        <li>Bấm <b>"Thêm"</b> ở góc trên bên phải.</li>
+        <li>Icon xanh lá <b>KÊ TIỀN</b> hiện ra ở màn hình chính. Từ nay chỉ cần chạm vào đó.</li>
+      </ol>
+      <ol class="steps" id="hd-ol-an" hidden>
+        <li><b>Đang mở trong Zalo?</b> Bấm dấu <b>ba chấm ⋯</b> ở góc trên bên phải, chọn <b>"Mở bằng trình duyệt"</b> (có thể ghi "Mở bằng Chrome"). Phải làm bước này trước, vì trong Zalo không thêm ra màn hình chính được.</li>
+        <li>Kiểm tra trang đang mở trong <b>Chrome</b> (biểu tượng tròn đỏ, vàng, xanh lá).</li>
+        <li>Bấm dấu <b>ba chấm dọc ⋮</b> ở góc trên bên phải.</li>
+        <li>Chọn <b>"Thêm vào màn hình chính"</b> (hoặc <b>"Cài đặt ứng dụng"</b>).</li>
+        <li>Bấm <b>"Thêm"</b> (hoặc <b>"Cài đặt"</b>), bấm thêm lần nữa nếu máy hỏi.</li>
+        <li>Icon xanh lá <b>KÊ TIỀN</b> hiện ra ở màn hình chính. Từ nay chỉ cần chạm vào đó.</li>
+      </ol>
+      <div class="tip">Các bản kê lưu trong Zalo <b>không</b> sang được Safari hay Chrome. Nên mở bằng trình duyệt và thêm ra màn hình chính <b>trước khi bắt đầu kê</b>.</div>
+    </div>
+    <div class="card">
+      <h2>Cách dùng nhanh</h2>
+      <ol class="steps">
+        <li>Gõ <b>tên người nộp</b>, chọn <b>nội dung nộp</b>.</li>
+        <li>Gõ <b>số tiền phải nộp</b>.</li>
+        <li>Đếm từng loại tiền: bấm <b>+</b> hoặc gõ thẳng số tờ, rồi bấm Enter để sang ô kế. Máy chỉ đọc kết quả, không đọc từng ô.</li>
+        <li>Bấm <b>Kê xong</b> để <b>nghe</b> thừa hay thiếu bao nhiêu. Chữ <b>THIẾU</b>, <b>THỪA</b>, <b>ĐỦ</b> cũng hiện ở thanh dưới.</li>
+        <li>Bấm <b>Lưu bản kê</b>. Xem lại ở tab <b>Đã lưu</b>.</li>
+      </ol>
+      <div class="tip">Nghe lại bằng nút <b>Đọc lại</b>, dừng bằng nút <b>Dừng</b>. Nơi ồn hoặc không muốn nghe thì chọn <b>"Tắt đọc"</b> ở ô Giọng đọc.</div>
+    </div>
+  </section>
+
   <section id="panel-daluu" role="tabpanel" aria-labelledby="tab-daluu" hidden>
     <div class="card">
       <label class="f">Tìm theo tên người nộp<input type="search" id="f-tim" data-testid="input-timkiem" autocomplete="off" placeholder="Nhập tên..."></label>
@@ -198,6 +242,7 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
 <div class="bar" id="tabs"><div class="in" role="tablist">
   <button type="button" role="tab" id="tab-kete" data-testid="tab-kete" aria-selected="true">Kê tiền</button>
   <button type="button" role="tab" id="tab-daluu" data-testid="tab-daluu" aria-selected="false">Đã lưu</button>
+  <button type="button" role="tab" id="tab-huongdan" data-testid="tab-huongdan" aria-selected="false">Hướng dẫn</button>
 </div></div>
 
 <div id="overlay" hidden>
@@ -770,12 +815,25 @@ function openRec(r){
   }else doOpen(r);
 }
 function showTab(name){
-  var k=name==="kete";
-  $("panel-kete").hidden=!k;$("panel-daluu").hidden=k;
+  var k=name==="kete",d=name==="daluu",g=name==="huongdan";
+  $("panel-kete").hidden=!k;$("panel-daluu").hidden=!d;$("panel-huongdan").hidden=!g;
   $("sumbar").hidden=!k;
-  $("tab-kete").setAttribute("aria-selected",String(k));$("tab-daluu").setAttribute("aria-selected",String(!k));
-  if(!k)renderList();
+  $("tab-kete").setAttribute("aria-selected",String(k));$("tab-daluu").setAttribute("aria-selected",String(d));$("tab-huongdan").setAttribute("aria-selected",String(g));
+  if(d)renderList();
+  if(g)initGuide();
   setBar();window.scrollTo(0,0);
+}
+var guideInit=false;
+function setPhone(w){
+  $("hd-ip").setAttribute("aria-pressed",String(w==="ip"));$("hd-an").setAttribute("aria-pressed",String(w==="an"));
+  $("hd-ol-ip").hidden=w!=="ip";$("hd-ol-an").hidden=w!=="an";
+}
+function initGuide(){
+  if(guideInit)return;guideInit=true;
+  var ua=navigator.userAgent||"",ios=/iPhone|iPad|iPod/i.test(ua)||(/Macintosh/i.test(ua)&&navigator.maxTouchPoints>1);
+  setPhone(ios?"ip":"an");
+  var sa=false;try{sa=!!navigator.standalone||(window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches);}catch(e){}
+  $("hd-ok").hidden=!sa;
 }
 
 /* Chống double-tap-to-zoom của iOS trên nút +/− và Kê xong (không áp dụng cho ô nhập) */
@@ -806,6 +864,9 @@ document.addEventListener("visibilitychange",function(){if(!document.hidden)fres
 window.addEventListener("focus",freshDate);
 $("tab-kete").addEventListener("click",function(){showTab("kete");});
 $("tab-daluu").addEventListener("click",function(){showTab("daluu");});
+$("tab-huongdan").addEventListener("click",function(){showTab("huongdan");});
+$("hd-ip").addEventListener("click",function(){setPhone("ip");});
+$("hd-an").addEventListener("click",function(){setPhone("an");});
 $("b-luu").addEventListener("click",function(){saveNew();});
 $("b-luumoi").addEventListener("click",function(){saveNew();});
 $("b-luukm").addEventListener("click",async function(){var ok=await saveNew();if(ok)resetForm();});
