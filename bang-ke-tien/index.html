@@ -136,6 +136,8 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .seg{display:flex;gap:8px;margin:8px 0}
 .seg button{flex:1;min-height:44px;border:1px solid var(--line2);background:var(--card);border-radius:10px;font-weight:700;cursor:pointer}
 .seg button[aria-pressed=true]{background:var(--primary);color:var(--onprimary);border-color:var(--primary)}
+.bchu .bc-t{font-size:18px;font-weight:800;color:var(--c-tt)}
+.bchu .bc-c{font-size:18px;font-weight:700;line-height:1.45;margin-top:6px;overflow-wrap:break-word}
 .total{font-weight:800;font-size:18px;margin:6px 0 10px;overflow-wrap:anywhere}
 .empty{color:var(--muted);text-align:center;padding:24px 8px}
 #overlay{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20;display:flex;align-items:center;justify-content:center;padding:16px}
@@ -206,6 +208,10 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
       <div class="lg"><b style="color:var(--c-mg)">Mệnh giá (màu như tờ tiền)</b> · <b style="color:var(--c-to)">Số tờ</b> · <b style="color:var(--c-tt)">Thành tiền</b></div>
       <div id="rows"></div>
     </div>
+    <div class="card bchu" id="bchu">
+      <div class="bc-t">Tổng cộng: <b id="o-tc" data-testid="out-tongcong">0 đ</b></div>
+      <div class="bc-c">Bằng chữ: <span id="o-bchu" data-testid="out-bangchu">—</span></div>
+    </div>
     <div class="card">
       <div class="btns" id="actions">
         <button type="button" class="btn pri" id="b-luu" data-testid="btn-luu">Lưu bản kê</button>
@@ -217,7 +223,7 @@ body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;o
       </div>
       <textarea class="cp" id="cp-fallback" readonly hidden aria-label="Văn bản để sao chép thủ công"></textarea>
     </div>
-    <div class="ver">Bản màu 16/11 (mệnh giá theo màu tờ tiền)<br>Cre: L.K.T 2026</div>
+    <div class="ver">Bản 16/11 (có số tiền bằng chữ)<br>Cre: L.K.T 2026</div>
   </section>
 
   <section id="panel-huongdan" role="tabpanel" aria-labelledby="tab-huongdan" hidden>
@@ -577,6 +583,8 @@ function recompute(){
   var f=getForm(),c=calc(f);
   DEN.forEach(function(mg){var n=f.soTo[mg],v=n*mg,x=toInputs[mg];x.tt.textContent=money(v);x.tt.className="tt"+(v>0?" has":"");x.row.className="row"+(n>0?" has":"");x.inp.classList.toggle("zero",n===0);});
   $("o-tong").textContent=money(c.tong);
+  $("o-tc").textContent=money(c.tong);
+  (function(){var t=docSoTien(c.tong);$("o-bchu").textContent=c.tong>0?t.charAt(0).toUpperCase()+t.slice(1)+" đồng.":"—";})();
   $("o-phai").textContent=money(c.phai);
   $("o-chenh").textContent=(c.chenh>0?"+":"")+money(c.chenh);
   $("o-tongto").textContent=String(c.tongTo);
