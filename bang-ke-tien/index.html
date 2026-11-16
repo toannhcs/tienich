@@ -186,6 +186,7 @@ body.kb .sums .v{font-size:1.1rem}
     <div class="warn" id="banner-zalo" hidden>
       <div>⚠ Bạn đang mở trong <b>Zalo</b>. Trong Zalo không thêm ra màn hình chính được, và các bản kê lưu ở đây sẽ không thấy ở Safari/Chrome.</div>
       <div class="btns2" style="margin-top:.5rem"><button type="button" class="btn pri" id="b-zalo-xem" style="width:100%">Xem cách mở bằng trình duyệt</button></div>
+      <div class="btns2" style="margin-top:.5rem"><button type="button" class="btn" id="b-zalo-xong" style="width:100%;color:var(--text)">✔ Tôi đã làm xong, đừng nhắc nữa</button></div>
     </div>
     <div class="banner" id="banner-home" hidden>
       <div>📲 Thêm <b>KÊ TIỀN</b> ra màn hình chính để mở nhanh, chỉ cần chạm một lần.</div>
@@ -275,6 +276,7 @@ body.kb .sums .v{font-size:1.1rem}
         <li><span>Icon xanh lá <b>KÊ TIỀN</b> hiện ra ở màn hình chính. Từ nay chỉ cần chạm vào đó.</span></li>
       </ol>
       <div class="tip">Các bản kê lưu trong Zalo <b>không</b> sang được Safari/Chrome. Nên mở bằng trình duyệt và thêm ra màn hình chính <b>trước khi bắt đầu kê</b>.</div>
+      <div style="margin-top:.6rem" id="nhac-lai-box" hidden><button type="button" class="btn sm" id="b-nhac-lai" style="width:100%">Bật lại lời nhắc ở đầu trang</button></div>
     </div>
     <div class="card">
       <h2>Cách dùng nhanh</h2>
@@ -877,20 +879,38 @@ function setPlat(ios){
   $("hd-ip").setAttribute("aria-pressed",String(ios));$("hd-an").setAttribute("aria-pressed",String(!ios));
   $("hd-iphone").hidden=!ios;$("hd-android").hidden=ios;
 }
+var KEY_ZDONE="bangke_v2_zalodone";
+function homeDone(){return storage.get(KEY_ZDONE)==="1"||storage.get(KEY_HOME)==="1";}
+function refreshHomeBanners(){
+  var st=isStandalone(),zalo=/Zalo/i.test(navigator.userAgent),web=/github\.io$/.test(location.hostname);
+  var done=storage.get(KEY_ZDONE)==="1";
+  $("banner-zalo").hidden=!(zalo&&!done);
+  $("banner-home").hidden=!(web&&!st&&!zalo&&storage.get(KEY_HOME)!=="1"&&!done);
+  $("nhac-lai-box").hidden=!homeDone();
+  setBar();
+}
 function initHome(){
   setPlat(isIos());
   var st=isStandalone();
   $("hd-ok").hidden=!st;
-  var web=/github\.io$/.test(location.hostname);
-  var zalo=/Zalo/i.test(navigator.userAgent);
-  $("banner-zalo").hidden=!zalo;
-  $("banner-home").hidden=!(web&&!st&&!zalo&&storage.get(KEY_HOME)!=="1");
+  /* Mở từ icon màn hình chính nghĩa là đã làm xong: không nhắc nữa */
+  if(st){storage.set(KEY_ZDONE,"1");storage.set(KEY_HOME,"1");}
+  refreshHomeBanners();
   $("b-zalo-xem").addEventListener("click",function(){showTab("hd");});
+  $("b-zalo-xong").addEventListener("click",function(){
+    confirmDlg("Bạn đã thêm KÊ TIỀN ra màn hình chính và mở được từ icon rồi chứ?",function(){
+      storage.set(KEY_ZDONE,"1");refreshHomeBanners();
+      toast("Đã tắt nhắc. Muốn xem lại thì vào mục Hướng dẫn.");
+    },"Rồi, đừng nhắc nữa","Chưa xong");
+  });
+  $("b-nhac-lai").addEventListener("click",function(){
+    storage.del(KEY_ZDONE);storage.del(KEY_HOME);refreshHomeBanners();toast("Đã bật lại lời nhắc ở đầu trang");showTab("kete");
+  });
   $("hd-ip").addEventListener("click",function(){setPlat(true);});
   $("hd-an").addEventListener("click",function(){setPlat(false);});
   $("tab-hd").addEventListener("click",function(){showTab("hd");});
   $("b-home-xem").addEventListener("click",function(){showTab("hd");});
-  $("b-home-sau").addEventListener("click",function(){storage.set(KEY_HOME,"1");$("banner-home").hidden=true;setBar();});
+  $("b-home-sau").addEventListener("click",function(){storage.set(KEY_HOME,"1");refreshHomeBanners();});
 }
 
 /* ---------- Gắn sự kiện ---------- */
