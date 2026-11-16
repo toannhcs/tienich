@@ -19,6 +19,9 @@
   }
 }
 *{box-sizing:border-box}
+html,body,button,input,select,textarea,label,#tabs,#sumbar{touch-action:manipulation}
+button{-webkit-tap-highlight-color:transparent}
+.step button,#b-kexong,#tabs button{-webkit-tap-highlight-color:transparent;-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 html,body{margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font:16px/1.4 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   -webkit-text-size-adjust:100%;
@@ -36,11 +39,11 @@ input[type=text],input[type=date],input[type=search],select{
   background:var(--inputbg);color:var(--text);border:1px solid var(--line2);border-radius:8px;min-width:0;max-width:100%}
 input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);outline-offset:1px}
 .money-in{font-size:20px!important;font-weight:700;text-align:right}
-.row{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:8px 0;border-top:1px solid var(--line);min-width:0}
+.row{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:4px 8px;padding:8px 0;border-top:1px solid var(--line);min-width:0}
 .row:first-of-type{border-top:0}
-.lbl{flex:1 1 auto;min-width:0}
+.lbl{flex:1 1 auto;min-width:max-content}
 .mg{font-weight:700;font-size:17px}
-.tt{font-size:14px;color:var(--muted);overflow-wrap:anywhere}
+.tt{font-size:14px;color:var(--muted);white-space:nowrap}
 .tt.has{color:var(--text);font-weight:600}
 .step{display:flex;align-items:center;flex:0 0 auto}
 .step button{width:44px;height:44px;border:1px solid var(--line2);background:var(--bg);border-radius:10px;font-size:24px;line-height:1;padding:0;cursor:pointer}
@@ -55,30 +58,29 @@ input:focus,select:focus,button:focus-visible{outline:3px solid var(--primary);o
 .warn{background:var(--badbg);color:var(--bad);border:1px solid var(--bad);border-radius:8px;padding:8px 10px;margin-bottom:12px;font-weight:700}
 .bar{position:fixed;left:0;right:0;z-index:5}
 .bar .in{max-width:430px;margin:0 auto}
-#sumbar{bottom:calc(56px + env(safe-area-inset-bottom))}
-#sumbar .in{background:var(--card);border-top:2px solid var(--line);box-shadow:var(--shadow);padding:4px 14px 6px;
-  display:grid;grid-template-columns:1fr 1fr;gap:0 10px}
-#sumbar .r2{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:8px;margin-top:2px}
-#sumbar .lc{min-width:0;display:flex;flex-direction:column;align-items:flex-start;gap:1px}
-#sumbar .r2 .btn{flex:0 0 auto;min-height:44px;min-width:92px;padding:0 14px}
-#sumbar .sm{font-size:13px;color:var(--muted);overflow-wrap:anywhere}
-#sumbar .sm b{color:var(--text)}
-#sumbar .c{min-width:0}
-#sumbar .k{font-size:11px;line-height:1.2;color:var(--muted)}
-#sumbar .v{font-size:16px;line-height:1.25;font-weight:700;overflow-wrap:anywhere}
+#sumbar{bottom:calc(44px + env(safe-area-inset-bottom))}
+#sumbar .in{background:var(--card);border-top:2px solid var(--line);box-shadow:var(--shadow);padding:3px 12px 4px}
+#sumbar .l1{display:flex;flex-wrap:wrap;gap:0 10px;font-size:clamp(10.5px,3.3vw,12px);line-height:1.3;color:var(--muted)}
+#sumbar .it{white-space:nowrap}
+#sumbar .it b{color:var(--text);font-weight:700}
+#sumbar .l2{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+#sumbar .l2 .btn{flex:0 0 auto;min-height:44px;min-width:84px;padding:0 12px}
+#sumbar .vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .nhan{display:inline-block;font-weight:800;padding:1px 8px;border-radius:6px;white-space:nowrap}
+#sumbar .nhan{flex:0 1 auto;min-width:0;overflow:hidden;font-size:clamp(14px,4.8vw,20px);line-height:1.3}
 .nhan.thua{color:var(--ok);background:var(--okbg)}
 .nhan.dut{color:var(--ok);background:var(--okbg)}
 .nhan.thieu{color:var(--bad);background:var(--badbg)}
 #tabs{bottom:0}
 #tabs .in{display:flex;background:var(--card);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom)}
-#tabs button{flex:1;height:56px;border:0;background:transparent;font-weight:700;font-size:16px;color:var(--muted);cursor:pointer;border-top:3px solid transparent}
+#tabs button{flex:1;height:44px;border:0;background:transparent;font-weight:700;font-size:15px;color:var(--muted);cursor:pointer;border-top:3px solid transparent}
 #tabs button[aria-selected=true]{color:var(--primary);border-top-color:var(--primary)}
 .item{display:flex;align-items:stretch;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:12px;margin-bottom:10px;padding:10px 10px 10px 12px;cursor:pointer;min-width:0}
 .item .body{flex:1;min-width:0}
 .item .t1{font-weight:700;overflow-wrap:anywhere}
 .item .t2{color:var(--muted);font-size:14px;overflow-wrap:anywhere}
-.item .t3{font-weight:700;overflow-wrap:anywhere;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
+.item .t3 span{white-space:nowrap}
+.item .t3{font-weight:700;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center}
 .item .btn{flex:0 0 auto;min-height:44px;min-width:56px;align-self:center;padding:6px 10px}
 .seg{display:flex;gap:8px;margin:8px 0}
 .seg button{flex:1;min-height:44px;border:1px solid var(--line2);background:var(--card);border-radius:10px;font-weight:700;cursor:pointer}
@@ -96,16 +98,15 @@ textarea.cp{width:100%;min-height:120px;font-size:16px;background:var(--inputbg)
 .voice .row2{display:flex;gap:8px;align-items:center}
 .voice select{margin:0;flex:1 1 auto;min-width:0;width:auto}
 .voice .btn{flex:0 0 auto;min-width:0;min-height:44px;padding:4px 12px}
-.voice .st{font-size:13px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.voice .st{font-size:12px;line-height:1.3;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
 .voice .vb{font-size:14px;margin-top:6px;padding:8px 10px;border:1px dashed var(--line2);border-radius:8px;overflow-wrap:anywhere}
 .voice .vb:empty{display:none}
 ::placeholder{opacity:1;color:#6b7580}
 @media (prefers-color-scheme: dark){::placeholder{color:#97a3ae}}
 body.kb #tabs{display:none}
 body.kb #sumbar{bottom:env(safe-area-inset-bottom)}
-body.kb #sumbar .in{grid-template-columns:1fr auto auto;align-items:center;padding:4px 14px}
-body.kb #sumbar .c2,body.kb #sumbar .sm,body.kb #sumbar .k{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
-body.kb #sumbar .r2{display:contents}
+body.kb #sumbar .in{padding:4px 12px}
+body.kb #sumbar .l1,body.kb #sumbar .sm{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 [hidden]{display:none!important}
 </style>
 </head>
@@ -134,8 +135,7 @@ body.kb #sumbar .r2{display:contents}
     <div class="card voice" id="voice">
       <div class="row2">
         <select id="f-doc" data-testid="select-doc" aria-label="Chế độ giọng đọc">
-          <option value="tung-o">Đọc từng ô</option>
-          <option value="ket-qua">Chỉ kết quả</option>
+          <option value="ket-qua">Đọc thừa/thiếu</option>
           <option value="tat">Tắt đọc</option>
         </select>
         <button type="button" class="btn" id="b-doclai" data-testid="btn-doc-lai" aria-label="Đọc lại kết quả">Đọc lại</button>
@@ -177,10 +177,13 @@ body.kb #sumbar .r2{display:contents}
 </div>
 
 <div class="bar" id="sumbar"><div class="in" aria-live="polite">
-  <div class="c c1"><div class="k">Tổng đã kê</div><div class="v" id="o-tong" data-testid="out-tong">0 đ</div></div>
-  <div class="c c2"><div class="k">Phải nộp</div><div class="v" id="o-phai" data-testid="out-phainop">0 đ</div></div>
-  <div class="r2"><div class="lc"><span class="nhan dut" id="o-nhan" data-testid="out-nhan">ĐỦ</span>
-    <span class="sm">Chênh lệch: <b id="o-chenh" data-testid="out-chenhlech">0 đ</b> &middot; Số tờ: <b id="o-tongto" data-testid="out-tongto">0</b></span></div>
+  <div class="l1">
+    <span class="it">Đã kê <b id="o-tong" data-testid="out-tong">0 đ</b></span>
+    <span class="it">Phải nộp <b id="o-phai" data-testid="out-phainop">0 đ</b></span>
+    <span class="it">Tờ <b id="o-tongto" data-testid="out-tongto">0</b></span>
+  </div>
+  <div class="l2"><span class="nhan dut" id="o-nhan" data-testid="out-nhan">ĐỦ</span>
+    <span class="sm vh">Chênh lệch: <b id="o-chenh" data-testid="out-chenhlech">0 đ</b></span>
     <button type="button" class="btn pri" id="b-kexong" data-testid="btn-ke-xong">Kê xong</button></div>
 </div></div>
 
@@ -487,7 +490,14 @@ function freshDate(){
 
 /* Chiều cao thanh cố định (scroll-padding, vị trí toast) và chế độ bàn phím mở (C1) */
 var maxH=window.innerHeight;
+function fitNhan(){
+  var n=$("o-nhan");if(!n||$("sumbar").hidden)return;
+  n.style.fontSize="";
+  var fs=parseFloat(getComputedStyle(n).fontSize)||16;
+  while(n.scrollWidth>n.clientWidth+1&&fs>10){fs-=1;n.style.fontSize=fs+"px";}
+}
 function setBar(){
+  fitNhan();
   var s=$("sumbar"),t=$("tabs"),hh=0;
   if(!s.hidden)hh+=s.offsetHeight;
   if(getComputedStyle(t).display!=="none")hh+=t.offsetHeight;
@@ -551,8 +561,8 @@ function recText(r){
 }
 
 /* Giọng đọc (speechSynthesis) */
-var KEY_DOC="bangke_doc_v1",docMode="tung-o",committed={},plusTimer=null,plusPending=null,everSpoke=false,voicesWait=true;
-(function(){try{var m=window.localStorage.getItem(KEY_DOC);if(m==="tung-o"||m==="ket-qua"||m==="tat")docMode=m;}catch(e){}})();
+var KEY_DOC="bangke_doc_v1",docMode="ket-qua",committed={},plusTimer=null,plusPending=null,everSpoke=false,voicesWait=true;
+(function(){try{var m=window.localStorage.getItem(KEY_DOC);if(m==="ket-qua"||m==="tat")docMode=m;}catch(e){}})();
 function synthOf(){
   try{if(window.speechSynthesis&&typeof window.speechSynthesis.speak==="function"&&typeof window.SpeechSynthesisUtterance==="function")return window.speechSynthesis;}catch(e){}
   return null;
@@ -588,10 +598,9 @@ function say(text,force){
   }catch(e){}
 }
 function resultText(){
-  var c=calc(getForm()),tong="Tổng đã kê "+docSoTien(c.tong)+" đồng.";
-  if(c.phai===0)return tong;
-  var kl=c.chenh>0?"Thừa "+docSoTien(c.chenh)+" đồng.":(c.chenh<0?"Thiếu "+docSoTien(-c.chenh)+" đồng.":"Đủ tiền.");
-  return kl+" "+tong+" Phải nộp "+docSoTien(c.phai)+" đồng.";
+  var c=calc(getForm());
+  if(c.phai===0)return "Chưa nhập số tiền phải nộp.";
+  return c.chenh>0?"Thừa "+docSoTien(c.chenh)+" đồng.":(c.chenh<0?"Thiếu "+docSoTien(-c.chenh)+" đồng.":"Đủ tiền.");
 }
 function sayResult(force){say(resultText(),force);}
 function cellText(mg,n){return docSoTien(n)+" tờ, "+docSoTien(mg);}
@@ -760,6 +769,22 @@ function showTab(name){
   if(!k)renderList();
   setBar();window.scrollTo(0,0);
 }
+
+/* Chống double-tap-to-zoom của iOS trên nút +/− và Kê xong (không áp dụng cho ô nhập) */
+(function(){
+  var last=0;
+  document.addEventListener("touchend",function(e){
+    var t=e.target&&e.target.closest?e.target.closest(".step button,#b-kexong"):null;
+    if(!t)return;
+    var now=Date.now();
+    if(now-last<350){
+      e.preventDefault();      /* chặn zoom và click tổng hợp */
+      t.click();               /* gọi tay để không mất lần bấm */
+    }
+    last=now;
+  },{passive:false});
+  document.addEventListener("gesturestart",function(e){e.preventDefault();});
+})();
 
 /* Gắn sự kiện */
 buildRows();
