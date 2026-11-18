@@ -98,7 +98,7 @@ const maKey=s=>String(s==null?'':s).trim().replace(/^0+/,'');
 const ld=(k,d)=>{try{const v=localStorage.getItem(k);return v?JSON.parse(v):d}catch(e){return d}};
 const sv=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}};
 let SRV=null,MOC=null;      // SRV: kho dùng chung (Cloudflare KV); null nếu không kết nối được thì dùng bộ nhớ trình duyệt
-const API=(/(^|\.)lich-gdx\.pages\.dev$/.test(location.hostname)?'':'https://lich-gdx.pages.dev')+'/api/them-cot';   // kho dùng chung (Cloudflare KV)
+const API='https://tienich-api.khanhtoan-hubt.workers.dev';   // kho dùng chung (Cloudflare KV)
 const CRED=API.charAt(0)==='/'?'same-origin':'omit';
 const canEdit=()=>!SRV||SRV.canEdit;
 async function srvPut(key,value){
