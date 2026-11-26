@@ -403,9 +403,9 @@ async function xuLySaiSot(file,book,out){
   const tenCT={};let thSheet=book.list.find(s=>s.name.trim().toUpperCase()==='TH');
   let thRows=null;if(thSheet)thRows=readRows(thSheet.doc,book.ss);
   if(thRows)for(const r of thRows){const a=(r.cells[0]||{}).text,b=(r.cells[1]||{}).text;if(a&&/^K\d{2}[A-Z]?$/i.test(a.trim()))tenCT[a.trim().toUpperCase()]=b||''}
-  const stats={};const seen=new Set();const ixc=buildIdx();let cbOk=0,cbBad=0;
+  const stats={};const seen=new Set();const ixc=buildIdx();let cbOk=0,cbBad=0;const skipped=[];
   for(const s of book.list){
-    if(!isK(s))continue;const ex=extractK(s,book.ss);if(!ex)continue;seen.add(ex.name);
+    if(!isK(s))continue;const ex=extractK(s,book.ss);if(!ex){skipped.push(String(s.name).trim().toUpperCase());continue}seen.add(ex.name);
     const bl=base.sheets[ex.name]||[];const bset=new Map(bl);const cset=new Set(ex.data.map(d=>d.key));
     let con=0,moi=0;
     const cbRow=new Map(),moiBy={};
@@ -464,7 +464,8 @@ async function xuLySaiSot(file,book,out){
   for(const k of keys){const f=stats[k].fixed;if(!f.length)continue;
     ds+='<details><summary>'+esc(k)+': '+f.length+' đã khắc phục</summary><p class="small">'+f.slice(0,200).map(([key,nm])=>esc(key.split('|')[0]+(nm?' – '+nm:''))).join('<br>')+(f.length>200?'<br>…':'')+'</p></details>'}
   out.innerHTML='<div class="msg ok">So với mốc đầu tháng ('+esc(base.file)+'): đã khắc phục '+T.fx+', chưa khắc phục '+T.con+', mới phát sinh '+T.moi+'. Mỗi sheet có thêm cột "Cán bộ tín dụng phụ trách" ('+cbOk+' dòng điền được'+(cbBad?', '+cbBad+' dòng chưa xác định được xã':'')+') và cột "So với đầu tháng".</div>'
-   +'<p><a class="btn pri" style="display:inline-block;text-decoration:none;line-height:30px" href="'+url+'" download="'+esc(name)+'">Tải file đã thêm cột</a></p>'+tb+ds
+   +(skipped.length?'<div class="msg warn"><b>Chưa phân tích được sheet: '+esc(skipped.join(', '))+'</b>. Không tìm thấy cột mã khách hàng/mã tổ hoặc dòng tiêu đề, nên các sheet này giữ nguyên, không có cột cán bộ và không có trong sheet TH. Hãy báo để bổ sung tên cột.</div>':'')
++'<p><a class="btn pri" style="display:inline-block;text-decoration:none;line-height:30px" href="'+url+'" download="'+esc(name)+'">Tải file đã thêm cột</a></p>'+tb+ds
    +'<p class="small">Một dòng được coi là "chưa khắc phục" khi cùng mã khách hàng (và cùng số khế ước/số tài khoản với các mẫu K04, K08, K14, K18, K21) còn xuất hiện trong file mốc.</p>';
 }
 $('#fileBase').onchange=async e=>{const f=e.target.files[0];if(!f)return;await luuMoc(f,$('#outBase'));e.target.value=''};
