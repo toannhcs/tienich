@@ -425,6 +425,19 @@ async function xuLySaiSot(file,book,out){
   if(thSheet&&thRows){
     let hr=null;for(const r of thRows.slice(0,10)){if(Object.values(r.cells).some(c=>norm(c.text)==='MACT')){hr=r;break}}
     if(hr){
+      // mã cảnh báo có trong file nhưng chưa có dòng ở sheet TH: thêm dòng mới để vẫn được tổng hợp
+      const inTH=new Set(thRows.filter(r=>r.num>hr.num).map(r=>((r.cells[0]||{}).text||'').trim().toUpperCase()));
+      const miss=Object.keys(stats).filter(k=>!inTH.has(k)&&(stats[k].nay>0||stats[k].dau>0)).sort();
+      if(miss.length){
+        const sd=thSheet.doc.getElementsByTagName('sheetData')[0];
+        const lastData=[...thRows].reverse().find(r=>r.num>hr.num&&r.cells[0])||hr;
+        const st0=(lastData.cells[0]||{}).style,st1=(lastData.cells[1]||{}).style;
+        let nx=Math.max(...thRows.map(r=>r.num))+1;
+        for(const k of miss){
+          const el=thSheet.doc.createElementNS(NS,'row');el.setAttribute('r',nx);sd.appendChild(el);
+          addCell(thSheet.doc,el,0,k,st0,nx);addCell(thSheet.doc,el,1,'Mã mới, chưa có trong biểu TH',st1,nx);
+          thRows.push({el,num:nx,cells:{0:{text:k},1:{text:''}},maxc:1});nx++}
+      }
       for(const [h,fn] of [['Đầu tháng',s=>s.dau],['Đã khắc phục',s=>s.fixed.length],['Chưa khắc phục',s=>s.con],['Mới phát sinh',s=>s.moi]]){
         addColSheet(thSheet.doc,thRows,hr,h,r=>{
           const a=((r.cells[0]||{}).text||'').trim().toUpperCase();const st=stats[a];if(!st||r.num<=hr.num)return null;return fn(st)},16)}
