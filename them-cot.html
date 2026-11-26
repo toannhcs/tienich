@@ -325,8 +325,8 @@ async function xuLy(file){
 }
 
 /* ---------- Cảnh báo sai sót (giám sát từ xa): so với đầu tháng ---------- */
-const HK=['MAKH','KH MAKH','MA KH','MA KHACH HANG'];
-const HNAME=['KH TENKH','TENKH','TEN KHACH HANG','TEN KH'];
+const HK=['MAKH','KH MAKH','MA KH','MA KHACH HANG','TO MATO'];
+const HNAME=['KH TENKH','TENKH','TEN KHACH HANG','TEN KH','TO TENTT'];
 const EXTRA={K04:['KU SOKU'],K08:['SO TK'],K14:['KU SOKU'],K18:['CCCC TK'],K21:['MAKH T']};
 const isK=s=>/^K\d{2}[A-Z]?$/i.test(String(s.name).trim());
 const isSaiSot=book=>book.list.filter(isK).length>=2;
@@ -435,7 +435,7 @@ async function xuLySaiSot(file,book,out){
         let nx=Math.max(...thRows.map(r=>r.num))+1;
         for(const k of miss){
           const el=thSheet.doc.createElementNS(NS,'row');el.setAttribute('r',nx);sd.appendChild(el);
-          addCell(thSheet.doc,el,0,k,st0,nx);addCell(thSheet.doc,el,1,'Mã mới, chưa có trong biểu TH',st1,nx);
+          addCell(thSheet.doc,el,0,k,st0,nx);addCell(thSheet.doc,el,1,tenCT[k]||(stats[k].nay>0?'Mã mới, chưa có trong biểu TH':'Mã có ở đầu tháng, nay không còn lỗi (đã khắc phục hết)'),st1,nx);
           thRows.push({el,num:nx,cells:{0:{text:k},1:{text:''}},maxc:1});nx++}
       }
       for(const [h,fn] of [['Đầu tháng',s=>s.dau],['Đã khắc phục',s=>s.fixed.length],['Chưa khắc phục',s=>s.con],['Mới phát sinh',s=>s.moi]]){
