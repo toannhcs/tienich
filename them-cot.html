@@ -155,6 +155,23 @@ async function openBook(file){
   }
   return {zip,ss,list};
 }
+/* tô vàng dòng: nhân bản kiểu ô hiện có, chỉ đổi màu nền */
+function makeYellow(book){
+  const sf=book.zip.file('xl/styles.xml');if(!sf)return null;
+  return sf.async('string').then(t=>{
+    const doc=parse(t);const cx=doc.getElementsByTagName('cellXfs')[0],fl=doc.getElementsByTagName('fills')[0];
+    if(!cx||!fl)return null;
+    const f=doc.createElementNS(NS,'fill'),pf=doc.createElementNS(NS,'patternFill');pf.setAttribute('patternType','solid');
+    const fg=doc.createElementNS(NS,'fgColor');fg.setAttribute('rgb','FFFFFF00');const bg=doc.createElementNS(NS,'bgColor');bg.setAttribute('indexed','64');
+    pf.appendChild(fg);pf.appendChild(bg);f.appendChild(pf);fl.appendChild(f);
+    const fid=fl.children.length-1;fl.setAttribute('count',fl.children.length);
+    const cache={};
+    const sty=sid=>{sid=sid==null?0:+sid;if(cache[sid]!=null)return cache[sid];
+      const x=cx.children[sid].cloneNode(true);x.setAttribute('fillId',fid);x.setAttribute('applyFill','1');
+      cx.appendChild(x);cx.setAttribute('count',cx.children.length);return cache[sid]=cx.children.length-1};
+    return {row(el){for(const c of kids(el,'c'))c.setAttribute('s',sty(c.getAttribute('s')))},save(){book.zip.file('xl/styles.xml',new XMLSerializer().serializeToString(doc))}};
+  });
+}
 function cellText(c,ss){
   const t=c.getAttribute('t');
   if(t==='inlineStr')return Array.from(c.getElementsByTagName('t')).map(x=>x.textContent).join('');
@@ -403,18 +420,19 @@ async function xuLySaiSot(file,book,out){
   const tenCT={};let thSheet=book.list.find(s=>s.name.trim().toUpperCase()==='TH');
   let thRows=null;if(thSheet)thRows=readRows(thSheet.doc,book.ss);
   if(thRows)for(const r of thRows){const a=(r.cells[0]||{}).text,b=(r.cells[1]||{}).text;if(a&&/^K\d{2}[A-Z]?$/i.test(a.trim()))tenCT[a.trim().toUpperCase()]=b||''}
-  const stats={};const seen=new Set();const ixc=buildIdx();let cbOk=0,cbBad=0;const skipped=[];
+  const stats={};const seen=new Set();const ixc=buildIdx();let cbOk=0,cbBad=0;const skipped=[];const Y=await makeYellow(book);
   for(const s of book.list){
     if(!isK(s))continue;const ex=extractK(s,book.ss);if(!ex){skipped.push(String(s.name).trim().toUpperCase());continue}seen.add(ex.name);
     const bl=base.sheets[ex.name]||[];const bset=new Map(bl);const cset=new Set(ex.data.map(d=>d.key));
-    let con=0,moi=0;
+    let con=0,moi=0;const moiRows=[];
     const cbRow=new Map(),moiBy={};
     addColSheet(s.doc,ex.rows,ex.hr,'Cán bộ tín dụng phụ trách',r=>{
       const d=ex.data.find(x=>x.r===r);if(!d)return null;
       const cb=ixc.cb.get(xaKey(d.xa));if(cb)cbOk++;else cbBad++;cbRow.set(r,cb||'Chưa khai báo xã');return cb||'Chưa khai báo xã'},30);
     addColSheet(s.doc,ex.rows,ex.hr,'So với đầu tháng',r=>{
       const d=ex.data.find(x=>x.r===r);if(!d)return null;
-      if(bset.has(d.key)){con++;return 'Chưa khắc phục'}moi++;const cbn=cbRow.get(r)||'Chưa khai báo xã';moiBy[cbn]=(moiBy[cbn]||0)+1;return 'Mới phát sinh'},24);
+      if(bset.has(d.key)){con++;return 'Chưa khắc phục'}moi++;moiRows.push(r.el);const cbn=cbRow.get(r)||'Chưa khai báo xã';moiBy[cbn]=(moiBy[cbn]||0)+1;return 'Mới phát sinh'},24);
+    if(Y)moiRows.forEach(el=>Y.row(el));
     const fixed=bl.filter(([k])=>!cset.has(k));
     stats[ex.name]={dau:bl.length,con,moi,fixed,nay:ex.data.length,moiBy,fixedBy:fixBy(fixed,ixc)};
     book.zip.file(s.path,new XMLSerializer().serializeToString(s.doc));
@@ -449,8 +467,10 @@ async function xuLySaiSot(file,book,out){
         const a=((r.cells[0]||{}).text||'').trim().toUpperCase();const st=stats[a];if(!st||r.num<=hr.num)return null;
         const dv0=((r.cells[2]||{}).text||'').trim();const dv=dv0.toLowerCase()==='món'?'món':(dv0||'KH');
         return cbTxt(st.fixedBy,dv)},48);
+      if(Y)for(const r of thRows){if(r.num<=hr.num)continue;const a=((r.cells[0]||{}).text||'').trim().toUpperCase();if(stats[a]&&stats[a].moi>0)Y.row(r.el)}
       book.zip.file(thSheet.path,new XMLSerializer().serializeToString(thSheet.doc))}
   }
+  if(Y)Y.save();
   const blob=await book.zip.generateAsync({type:'blob',mimeType:'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',compression:'DEFLATE'});
   const title=thRows?tieuDe(thRows,{num:99}):'';
   const name=(tenFile(title)||file.name.replace(/\.(xlsx|xlsm)$/i,''))+'_'+ngayTao(file)+'.xlsx';
